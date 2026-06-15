@@ -5,1531 +5,1431 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ForkLab — Fork Ideas. Mine Value.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Onest:wght@400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --red: #FF3B30;
   --yellow: #FFC300;
   --cream: #FFF5E8;
-  --dark: #0E0E0E;
+  --dark: #0D0D0D;
   --white: #FFFFFF;
-  --green: #00C853;
-  --card-r: 18px;
+  --green: #00D26A;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
-body {
-  font-family: 'Syne', sans-serif;
-  background: var(--cream);
-  color: var(--dark);
-  min-height: 100vh;
-  overflow-x: hidden;
-  max-width: 430px;
-  margin: 0 auto;
-  position: relative;
+body{
+  font-family:'Onest',sans-serif;
+  background:var(--cream);color:var(--dark);
+  min-height:100vh;overflow-x:hidden;
+  max-width:430px;margin:0 auto;
 }
 
-/* ───── SCREENS ───── */
-.screen { display: none; min-height: 100vh; flex-direction: column; }
-.screen.active { display: flex; }
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;flex-direction:column;}
+.screen.active{display:flex;}
 
-/* ───── LOGO SVG ───── */
-.wordmark {
-  display: flex; align-items: center; gap: 10px;
-}
-.wordmark-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 38px; letter-spacing: 2px;
-  line-height: 1; color: var(--white);
-}
-.wordmark-text span { color: var(--red); }
-
-/* ───── LANDING ───── */
-#screen-landing {
-  background: var(--dark);
-  overflow: hidden;
-  position: relative;
-  min-height: 100vh;
+/* ═══════════════════════════════
+   LANDING
+═══════════════════════════════ */
+#screen-landing{
+  background:var(--dark);
+  position:relative;overflow:hidden;min-height:100vh;
 }
 
-/* Diagonal stripe background */
-.landing-stripes {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
-}
-.landing-stripes::before {
-  content: '';
-  position: absolute;
-  top: -10%; left: -20%;
-  width: 140%; height: 65%;
-  background: var(--red);
-  transform: skewY(-8deg);
-  transform-origin: top left;
-}
-.landing-stripes::after {
-  content: '';
-  position: absolute;
-  bottom: 15%; right: -10%;
-  width: 60%; height: 30%;
-  background: var(--yellow);
-  border-radius: 999px;
-  filter: blur(80px);
-  opacity: 0.15;
+/* Big cream block — the "poster" area */
+.land-cream-block{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:58%;
+  background:var(--cream);
+  clip-path:polygon(0 0,100% 0,100% 85%,0 100%);
+  z-index:0;
 }
 
-.landing-inner {
-  position: relative; z-index: 2;
-  padding: 52px 24px 36px;
-  display: flex; flex-direction: column;
-  min-height: 100vh;
+/* Yellow accent bar */
+.land-yellow-bar{
+  position:absolute;
+  top:0;right:0;
+  width:14px;height:58%;
+  background:var(--yellow);
+  z-index:1;
 }
 
-/* Pill badge */
-.badge-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  border: 1.5px solid rgba(255,255,255,0.25);
-  border-radius: 4px; padding: 6px 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.7); text-transform: uppercase;
-  width: fit-content; margin-bottom: 28px;
-}
-.badge-pill::before {
-  content: ''; width: 7px; height: 7px;
-  background: var(--green); border-radius: 50%;
-  animation: pulse-dot 2s ease infinite;
-}
-@keyframes pulse-dot {
-  0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+/* Red dot accent */
+.land-red-dot{
+  position:absolute;
+  bottom:42%;right:28px;
+  width:56px;height:56px;
+  background:var(--red);
+  border-radius:50%;z-index:2;
 }
 
-/* Giant hero type */
-.hero-stack { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: rgba(255,255,255,0.45);
-  letter-spacing: 0.15em; text-transform: uppercase;
-  margin-bottom: 6px;
+.land-inner{
+  position:relative;z-index:10;
+  padding:52px 26px 36px;
+  display:flex;flex-direction:column;
+  min-height:100vh;
 }
 
-.hero-big {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(86px, 28vw, 108px);
-  line-height: 0.88;
-  color: var(--white);
-  letter-spacing: -1px;
-  position: relative;
+/* ── SVG LOGO ── */
+.logo-lockup{margin-bottom:8px;}
+
+/* Hero type stacked */
+.land-hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:8px;}
+
+.land-kicker{
+  font-family:'Fira Code',monospace;
+  font-size:10px;font-weight:600;
+  color:rgba(0,0,0,0.35);
+  letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:10px;
 }
 
-/* FORK in red outline style */
-.hero-big .word-fork {
-  color: transparent;
-  -webkit-text-stroke: 2.5px var(--white);
-  display: block;
+.land-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(68px,24vw,88px);
+  line-height:0.86;
+  letter-spacing:-2px;
+  color:var(--dark);
+  position:relative;
 }
 
-.hero-big .word-lab {
-  color: var(--yellow);
-  display: block;
-  position: relative;
+.land-title .t-fork{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:2.5px var(--dark);
+}
+.land-title .t-lab{
+  display:block;
+  color:var(--red);
+  position:relative;
 }
 
-/* Rotated sticker */
-.sticker-fun {
-  position: absolute; right: 0; top: 60%;
-  background: var(--red);
-  color: var(--white);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px; letter-spacing: 2px;
-  padding: 8px 14px;
-  transform: rotate(6deg);
-  border-radius: 4px;
+/* Rotated badge next to LAB */
+.land-badge-fun{
+  position:absolute;
+  right:0;top:14px;
+  background:var(--dark);color:var(--yellow);
+  font-family:'Fira Code',monospace;
+  font-size:10px;font-weight:600;
+  letter-spacing:0.08em;
+  padding:6px 10px;
+  transform:rotate(5deg);
+  border-radius:4px;
 }
 
-.hero-tagline {
-  margin-top: 20px;
-  font-size: 15px; font-weight: 500;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.6;
+/* Tagline below */
+.land-tagline{
+  margin-top:18px;
+  font-size:16px;font-weight:500;
+  color:rgba(0,0,0,0.5);
+  line-height:1.55;
 }
-.hero-tagline b { color: var(--white); font-weight: 700; }
+.land-tagline strong{color:var(--dark);font-weight:700;}
 
-/* Fork icon inline */
-.fork-icon-svg { display: inline-block; vertical-align: middle; margin-right: 4px; }
+/* ── BUTTONS ── */
+.land-btns{margin-top:32px;display:flex;flex-direction:column;gap:10px;}
 
-.btn-connect {
-  margin-top: 36px;
-  display: flex; align-items: center; justify-content: center; gap: 14px;
-  background: var(--white);
-  color: var(--dark);
-  border: none; border-radius: 6px;
-  padding: 18px 28px;
-  font-family: 'Syne', sans-serif;
-  font-size: 16px; font-weight: 800;
-  cursor: pointer; width: 100%;
-  letter-spacing: 0.02em;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+.btn-land-primary{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:var(--dark);color:var(--white);
+  border:none;border-radius:0px;/* Sharp corners — not generic */
+  padding:20px 24px;
+  font-family:'Unbounded',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:0.04em;
+  cursor:pointer;width:100%;
+  transition:transform 0.12s,box-shadow 0.12s;
+  box-shadow:5px 5px 0 var(--red);
+  position:relative;
 }
-.btn-connect:active { transform: translateY(3px); box-shadow: none; }
+.btn-land-primary:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--red);}
 
-.btn-connect-gh-icon { width: 22px; height: 22px; }
+.btn-land-continue{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:transparent;color:var(--dark);
+  border:2px solid var(--dark);border-radius:0;
+  padding:17px 24px;
+  font-family:'Onest',sans-serif;
+  font-size:14px;font-weight:700;
+  cursor:pointer;width:100%;
+  transition:background 0.15s;
+}
+.btn-land-continue:active{background:rgba(0,0,0,0.05);}
+.btn-land-continue.hidden{display:none;}
 
-/* Landing footnote row */
-.landing-foot {
-  display: flex; gap: 0; margin-top: 32px;
-  border: 1.5px solid rgba(255,255,255,0.1);
-  border-radius: 8px; overflow: hidden;
+/* ── BOTTOM STATS STRIP ── */
+.land-stats{
+  margin-top:auto;padding-top:24px;
+  display:flex;gap:0;
+  border-top:1.5px solid rgba(255,255,255,0.1);
 }
-.lf-item {
-  flex: 1; padding: 14px 12px; text-align: center;
-  border-right: 1.5px solid rgba(255,255,255,0.1);
+.ls-item{flex:1;text-align:center;}
+.ls-num{
+  font-family:'Unbounded',sans-serif;
+  font-size:24px;font-weight:900;color:var(--yellow);
 }
-.lf-item:last-child { border-right: none; }
-.lf-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 30px; color: var(--yellow); line-height: 1;
-}
-.lf-lbl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: rgba(255,255,255,0.35);
-  text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px;
-}
-
-/* ───── PARTICLES ───── */
-.star-particle, .coin-particle {
-  position: fixed; pointer-events: none; z-index: 9999;
-}
-.star-particle { font-size: 18px; animation: sfloat 2s ease-out forwards; }
-.coin-particle { font-size: 14px; animation: cfloat 1.5s ease-out forwards; }
-
-@keyframes sfloat {
-  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-90px) scale(0.2) rotate(30deg); opacity: 0; }
-}
-@keyframes cfloat {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-70px) scale(0.1); opacity: 0; }
+.ls-lbl{
+  font-family:'Fira Code',monospace;
+  font-size:8px;color:rgba(255,255,255,0.3);
+  text-transform:uppercase;letter-spacing:0.1em;margin-top:4px;
 }
 
-/* ───── APP HEADER ───── */
-.app-header {
-  background: var(--dark);
-  padding: 14px 18px;
-  display: flex; align-items: center; gap: 12px;
-  position: sticky; top: 0; z-index: 100;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+/* ── Returning user card ── */
+.return-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px;padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+  display:none;
+}
+.return-card.show{display:flex;}
+.return-ava{
+  width:36px;height:36px;border-radius:6px;
+  background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Unbounded',sans-serif;font-size:16px;font-weight:900;color:var(--white);
+}
+.return-name{
+  font-family:'Onest',sans-serif;font-size:14px;font-weight:700;color:var(--white);
+}
+.return-rank{
+  font-family:'Fira Code',monospace;font-size:10px;color:var(--yellow);margin-top:2px;
 }
 
-.header-avatar {
-  width: 38px; height: 38px;
-  border-radius: 8px;
-  background: var(--red);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px; color: var(--white);
-  flex-shrink: 0;
+/* ═══════════════════════════════
+   PARTICLES
+═══════════════════════════════ */
+.star-particle,.coin-particle{position:fixed;pointer-events:none;z-index:9999;}
+.star-particle{font-size:18px;animation:sfloat 1.8s ease-out forwards;}
+.coin-particle{font-size:14px;animation:cfloat 1.5s ease-out forwards;}
+@keyframes sfloat{0%{transform:translateY(0) scale(1) rotate(0deg);opacity:1;}100%{transform:translateY(-90px) scale(0.2) rotate(25deg);opacity:0;}}
+@keyframes cfloat{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-70px) scale(0.1);opacity:0;}}
+
+/* ═══════════════════════════════
+   APP HEADER
+═══════════════════════════════ */
+.app-header{
+  background:var(--dark);
+  padding:12px 18px;
+  display:flex;align-items:center;gap:12px;
+  position:sticky;top:0;z-index:100;
+  border-bottom:1px solid rgba(255,255,255,0.07);
 }
 
-.header-wordmark {
-  flex: 1;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px; letter-spacing: 2px; color: var(--white);
-  line-height: 1;
+/* Inline SVG logo — small version */
+.hdr-logo{
+  flex:1;
+  display:flex;align-items:center;gap:8px;
 }
-.header-wordmark span { color: var(--red); }
+.hdr-logo-mark{
+  font-family:'Unbounded',sans-serif;
+  font-size:17px;font-weight:900;
+  color:var(--white);letter-spacing:0.5px;line-height:1;
+}
+.hdr-logo-mark em{color:var(--red);font-style:normal;}
 
-.header-coin-pill {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(255,195,0,0.1);
-  border: 1px solid rgba(255,195,0,0.25);
-  border-radius: 6px; padding: 7px 12px;
-}
-.header-coin-pill .cv {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px; font-weight: 700; color: var(--yellow);
-}
-
-/* ───── STATS STRIP ───── */
-.stats-strip {
-  background: var(--dark);
-  display: flex; padding: 0 16px 14px; gap: 8px;
-}
-.stat-chip {
-  flex: 1; background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px; padding: 9px 6px; text-align: center;
-}
-.stat-chip .sv {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px; font-weight: 700; color: var(--white);
-}
-.stat-chip .sl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px; color: rgba(255,255,255,0.3);
-  text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px;
+.hdr-avatar{
+  width:34px;height:34px;border-radius:4px;
+  background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Unbounded',sans-serif;font-size:14px;font-weight:900;color:var(--white);
+  flex-shrink:0;
 }
 
-/* ───── NAV ───── */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 430px;
-  background: var(--dark);
-  border-top: 1px solid rgba(255,255,255,0.07);
-  display: flex; z-index: 200;
-  padding-bottom: env(safe-area-inset-bottom, 0);
+.hdr-coins{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,195,0,0.09);
+  border:1px solid rgba(255,195,0,0.2);
+  border-radius:4px;padding:6px 11px;
 }
-.nav-item {
-  flex: 1; display: flex; flex-direction: column; align-items: center;
-  padding: 11px 4px; cursor: pointer; border: none; background: none;
-  color: rgba(255,255,255,0.3);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  transition: color 0.18s;
-}
-.nav-item.active { color: var(--yellow); }
-.nav-item svg { width: 20px; height: 20px; margin-bottom: 5px; }
-
-/* ───── MAIN CONTENT ───── */
-.main-content { flex: 1; overflow-y: auto; padding-bottom: 86px; }
-
-/* ───── HOME ───── */
-.home-hero {
-  background: var(--dark);
-  padding: 22px 20px 28px;
-  position: relative; overflow: hidden;
-}
-.home-hero::after {
-  content: 'MINING';
-  position: absolute; right: -8px; top: 50%; transform: translateY(-50%) rotate(90deg);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 60px; color: rgba(255,255,255,0.03);
-  letter-spacing: 4px; pointer-events: none;
+.hdr-coins span{
+  font-family:'Fira Code',monospace;
+  font-size:13px;font-weight:600;color:var(--yellow);
 }
 
-.home-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: rgba(255,255,255,0.35);
-  text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;
+/* ═══════════════════════════════
+   STATS STRIP
+═══════════════════════════════ */
+.stats-strip{
+  background:var(--dark);
+  display:flex;padding:0 14px 12px;gap:6px;
+}
+.sc{
+  flex:1;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:6px;padding:8px 4px;text-align:center;
+}
+.sc .sv{
+  font-family:'Fira Code',monospace;
+  font-size:14px;font-weight:600;color:var(--white);
+}
+.sc .sl{
+  font-family:'Fira Code',monospace;
+  font-size:7px;color:rgba(255,255,255,0.28);
+  text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;
 }
 
-.home-big-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(64px, 20vw, 80px);
-  color: var(--yellow);
-  line-height: 0.9; letter-spacing: -1px;
+/* ═══════════════════════════════
+   BOTTOM NAV
+═══════════════════════════════ */
+.bot-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;
+  background:var(--dark);
+  border-top:1px solid rgba(255,255,255,0.07);
+  display:flex;z-index:200;
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+.ni{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  padding:10px 2px;cursor:pointer;border:none;background:none;
+  color:rgba(255,255,255,0.28);
+  font-family:'Fira Code',monospace;
+  font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;
+  transition:color 0.15s;
+}
+.ni.active{color:var(--yellow);}
+.ni svg{width:20px;height:20px;margin-bottom:4px;}
+
+/* ═══════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════ */
+.main-content{flex:1;overflow-y:auto;padding-bottom:80px;}
+
+/* ── HOME ── */
+.home-top{
+  background:var(--dark);
+  padding:20px 18px 26px;
+  position:relative;overflow:hidden;
+}
+.home-top::before{
+  content:'MINING';
+  position:absolute;right:-12px;top:50%;
+  transform:translateY(-50%) rotate(90deg);
+  font-family:'Unbounded',sans-serif;
+  font-size:56px;font-weight:900;
+  color:rgba(255,255,255,0.025);
+  letter-spacing:6px;pointer-events:none;
 }
 
-.home-cps {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 10px;
+.ht-label{
+  font-family:'Fira Code',monospace;
+  font-size:9px;font-weight:600;
+  color:rgba(255,255,255,0.3);
+  text-transform:uppercase;letter-spacing:0.15em;margin-bottom:4px;
 }
-.home-cps b { color: var(--green); }
-
-.xp-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-top: 14px; }
-.xp-fill { height: 100%; background: var(--yellow); border-radius: 2px; transition: width 0.6s ease; }
-.xp-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: rgba(255,255,255,0.25);
-  margin-top: 5px;
+.ht-coins{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(52px,18vw,72px);
+  font-weight:900;color:var(--yellow);
+  line-height:0.88;letter-spacing:-2px;
+}
+.ht-cps{
+  font-family:'Fira Code',monospace;
+  font-size:12px;color:rgba(255,255,255,0.38);margin-top:8px;
+}
+.ht-cps b{color:var(--green);}
+.xp-bar-wrap{height:3px;background:rgba(255,255,255,0.07);border-radius:1px;margin-top:12px;}
+.xp-bar-fill{height:100%;background:var(--yellow);border-radius:1px;transition:width .5s;}
+.xp-lbl{
+  font-family:'Fira Code',monospace;
+  font-size:8px;color:rgba(255,255,255,0.22);margin-top:4px;
 }
 
 /* Action grid */
-.home-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 10px; padding: 18px 16px 4px;
+.action-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8px;padding:14px 14px 4px;
+}
+.at{
+  background:var(--dark);
+  border-radius:10px;padding:16px 12px;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,0.07);
+  transition:transform 0.12s,border-color 0.12s;
+}
+.at:active{transform:scale(0.94);border-color:var(--red);}
+.at-ic{font-size:26px;display:block;margin-bottom:8px;}
+.at-t{
+  font-family:'Onest',sans-serif;
+  font-size:13px;font-weight:800;color:var(--white);
+}
+.at-s{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(255,255,255,0.28);margin-top:2px;
 }
 
-.action-tile {
-  background: var(--dark);
-  border-radius: 12px; padding: 18px 14px;
-  cursor: pointer;
-  border: 1.5px solid rgba(255,255,255,0.07);
-  transition: transform 0.15s, border-color 0.15s;
-  position: relative; overflow: hidden;
+/* Section heading */
+.sh{
+  padding:16px 14px 8px;
+  display:flex;align-items:baseline;gap:8px;
 }
-.action-tile:active { transform: scale(0.95); border-color: var(--red); }
-.action-tile .at-icon { font-size: 28px; display: block; margin-bottom: 10px; }
-.action-tile .at-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px; font-weight: 800; color: var(--white);
+.sh h2{
+  font-family:'Unbounded',sans-serif;
+  font-size:22px;font-weight:900;color:var(--dark);letter-spacing:-0.5px;
 }
-.action-tile .at-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 3px;
+.sh h2.w{color:var(--white);}
+.sh em{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(0,0,0,0.28);
+  text-transform:uppercase;font-style:normal;
 }
 
 /* Activity */
-.section-head {
-  padding: 18px 16px 10px;
-  display: flex; align-items: baseline; gap: 10px;
+.act-list{padding:0 12px;display:flex;flex-direction:column;gap:7px;}
+.act-row{
+  background:var(--white);
+  border-radius:10px;padding:12px;
+  display:flex;align-items:center;gap:10px;
+  border:1px solid rgba(0,0,0,0.06);
 }
-.section-head h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px; color: var(--dark); letter-spacing: 1px;
+.ar-ic{font-size:18px;flex-shrink:0;}
+.ar-t{font-size:13px;font-weight:700;color:var(--dark);}
+.ar-s{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(0,0,0,0.35);margin-top:1px;
 }
-.section-head h2.light { color: var(--white); }
-.section-head span {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: rgba(0,0,0,0.3); text-transform: uppercase;
-}
-
-.activity-list { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; }
-
-.act-item {
-  background: var(--white);
-  border-radius: 12px; padding: 13px 14px;
-  display: flex; align-items: center; gap: 12px;
-  border: 1.5px solid rgba(0,0,0,0.06);
-}
-.act-ico { font-size: 20px; flex-shrink: 0; }
-.act-title { font-size: 13px; font-weight: 700; color: var(--dark); }
-.act-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: rgba(0,0,0,0.38); margin-top: 2px;
-}
-.act-val {
-  margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; font-weight: 700; color: var(--red);
+.ar-v{
+  margin-left:auto;
+  font-family:'Fira Code',monospace;
+  font-size:12px;font-weight:600;color:var(--red);
 }
 
-/* ───── REPO CARDS ───── */
-.repos-header {
-  padding: 16px 16px 10px;
-  display: flex; align-items: center; justify-content: space-between;
+/* ── REPOS ── */
+.repo-list{padding:0 12px;display:flex;flex-direction:column;gap:12px;}
+.repo-card{
+  background:var(--white);
+  border-radius:12px;overflow:hidden;
+  border:1px solid rgba(0,0,0,0.07);
 }
-.repos-list { padding: 0 14px; display: flex; flex-direction: column; gap: 14px; }
+.rc-stripe{height:4px;}
+.rc-t0 .rc-stripe{background:rgba(0,0,0,0.15);}
+.rc-t1 .rc-stripe{background:var(--red);}
+.rc-t2 .rc-stripe{background:linear-gradient(90deg,#FF3B30,#FF7A00);}
+.rc-t3 .rc-stripe{background:var(--yellow);}
+.rc-t4 .rc-stripe{background:linear-gradient(90deg,var(--yellow),var(--green));}
+.rc-t5 .rc-stripe{background:linear-gradient(90deg,var(--green),#00BCD4);}
 
-.repo-card {
-  background: var(--white);
-  border-radius: 14px; padding: 0;
-  border: 1.5px solid rgba(0,0,0,0.08);
-  overflow: hidden;
-  transition: transform 0.15s;
+.rc-body{padding:14px 14px 0;}
+.rc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.rc-ico{
+  width:48px;height:48px;border-radius:10px;
+  background:var(--cream);display:flex;align-items:center;justify-content:center;
+  font-size:24px;flex-shrink:0;
 }
-.repo-card-head {
-  padding: 16px 16px 14px;
-  display: flex; align-items: flex-start; gap: 12px;
+.rc-name{
+  font-family:'Onest',sans-serif;
+  font-size:16px;font-weight:800;color:var(--dark);
 }
-.repo-card-stripe { height: 4px; background: var(--dark); }
-.repo-card.t1 .repo-card-stripe { background: var(--red); }
-.repo-card.t2 .repo-card-stripe { background: linear-gradient(90deg,#FF3B30,#FF8C00); }
-.repo-card.t3 .repo-card-stripe { background: var(--yellow); }
-.repo-card.t4 .repo-card-stripe { background: linear-gradient(90deg,var(--yellow),var(--green)); }
-.repo-card.t5 .repo-card-stripe { background: linear-gradient(90deg,var(--green),#00BCD4); }
-
-.repo-ico {
-  width: 52px; height: 52px; border-radius: 12px;
-  background: var(--cream); display: flex; align-items: center; justify-content: center;
-  font-size: 26px; flex-shrink: 0;
+.rc-lv{
+  font-family:'Fira Code',monospace;
+  font-size:9px;font-weight:600;
+  background:var(--dark);color:var(--yellow);
+  border-radius:3px;padding:2px 6px;display:inline-block;margin-top:3px;
 }
-.repo-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 17px; font-weight: 800; color: var(--dark);
-}
-.repo-lvl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; font-weight: 700;
-  background: var(--dark); color: var(--yellow);
-  border-radius: 4px; padding: 3px 7px; display: inline-block; margin-top: 4px;
-}
-.income-tag {
-  margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; font-weight: 700;
-  background: rgba(0,200,83,0.1);
-  border: 1px solid rgba(0,200,83,0.25);
-  color: var(--green); border-radius: 6px;
-  padding: 4px 9px; white-space: nowrap;
+.rc-income{
+  margin-left:auto;
+  font-family:'Fira Code',monospace;
+  font-size:11px;font-weight:600;
+  background:rgba(0,210,106,0.09);
+  border:1px solid rgba(0,210,106,0.22);
+  color:var(--green);border-radius:5px;padding:3px 8px;white-space:nowrap;
 }
 
-.repo-stats-row {
-  display: flex; padding: 0 16px 14px; gap: 12px;
+.rc-stats{display:flex;gap:10px;margin-bottom:12px;}
+.rcs{flex:1;text-align:center;}
+.rcs .rv{
+  font-family:'Fira Code',monospace;
+  font-size:16px;font-weight:600;color:var(--dark);
 }
-.rs { flex: 1; text-align: center; }
-.rs .rv {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 18px; font-weight: 700; color: var(--dark);
-}
-.rs .rl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: rgba(0,0,0,0.35); text-transform: uppercase; margin-top: 2px;
+.rcs .rl{
+  font-family:'Fira Code',monospace;
+  font-size:8px;color:rgba(0,0,0,0.32);text-transform:uppercase;margin-top:1px;
 }
 
-.repo-btns {
-  display: flex; padding: 0 14px 14px; gap: 8px;
+.rc-btns{display:flex;gap:7px;padding:0 14px 14px;}
+.btn-upg{
+  flex:1;background:var(--dark);color:var(--white);
+  border:none;border-radius:7px;padding:10px;
+  font-family:'Onest',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:opacity .15s;
 }
-.btn-upg {
-  flex: 1; background: var(--dark); color: var(--white);
-  border: none; border-radius: 8px; padding: 11px;
-  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: opacity 0.15s;
+.btn-upg:disabled{opacity:.3;cursor:not-allowed;}
+.btn-fork{
+  background:var(--red);color:var(--white);
+  border:none;border-radius:7px;padding:10px 13px;
+  font-family:'Onest',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:opacity .15s;
 }
-.btn-upg:disabled { opacity: 0.35; cursor: not-allowed; }
-.btn-upg:not(:disabled):active { opacity: 0.7; }
-.btn-frk {
-  background: var(--red); color: var(--white);
-  border: none; border-radius: 8px; padding: 11px 14px;
-  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: opacity 0.15s;
-}
-.btn-frk:active { opacity: 0.7; }
+.btn-fork:active,.btn-upg:not(:disabled):active{opacity:.7;}
 
-/* ───── NETWORK ───── */
-.network-canvas-wrap {
-  background: var(--dark);
-  margin: 14px 14px 12px;
-  border-radius: 14px; overflow: hidden;
-  border: 1.5px solid rgba(255,255,255,0.08);
+/* ── NETWORK ── */
+.netmap-wrap{
+  background:var(--dark);margin:12px;
+  border-radius:12px;overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
 }
-#network-canvas { width: 100%; display: block; }
+#netcanvas{width:100%;display:block;}
+.mult-card{
+  background:var(--dark);margin:0 12px 12px;
+  border-radius:12px;padding:20px;
+  border:1px solid rgba(255,195,0,0.18);text-align:center;
+}
+.mult-v{
+  font-family:'Unbounded',sans-serif;
+  font-size:60px;font-weight:900;color:var(--yellow);line-height:1;
+}
+.mult-l{
+  font-family:'Fira Code',monospace;
+  font-size:10px;color:rgba(255,255,255,0.35);
+  text-transform:uppercase;letter-spacing:0.1em;margin-top:5px;
+}
+.net-stats-list{padding:0 12px;display:flex;flex-direction:column;gap:7px;}
 
-.mult-card {
-  background: var(--dark);
-  margin: 0 14px 14px;
-  border-radius: 14px; padding: 22px;
-  border: 1.5px solid rgba(255,195,0,0.2);
-  text-align: center;
+/* ── DISCOVER ── */
+.disc-list{padding:0 12px;display:flex;flex-direction:column;gap:10px;}
+.disc-card{
+  background:var(--white);
+  border-radius:12px;padding:14px;
+  display:flex;align-items:center;gap:12px;
+  border:1px solid rgba(0,0,0,0.07);
+  transition:border-color .15s,transform .15s;cursor:pointer;
 }
-.mult-val {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 68px; color: var(--yellow); line-height: 1;
+.disc-card:active{transform:scale(.98);border-color:var(--red);}
+.disc-ico{
+  width:52px;height:52px;border-radius:10px;
+  background:var(--cream);display:flex;align-items:center;justify-content:center;
+  font-size:26px;flex-shrink:0;
 }
-.mult-lbl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: rgba(255,255,255,0.4);
-  text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px;
+.disc-n{font-family:'Onest',sans-serif;font-size:15px;font-weight:800;color:var(--dark);}
+.disc-d{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(0,0,0,0.38);margin-top:2px;
 }
-.net-stats { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; }
+.disc-s{
+  font-family:'Fira Code',monospace;
+  font-size:11px;font-weight:600;color:var(--yellow);margin-top:4px;
+}
+.btn-acq{
+  background:var(--red);color:var(--white);
+  border:none;border-radius:7px;padding:10px 12px;
+  font-family:'Onest',sans-serif;font-size:11px;font-weight:700;
+  cursor:pointer;line-height:1.4;text-align:center;
+  transition:opacity .15s;
+}
+.btn-acq:active{opacity:.7;}
 
-/* ───── DISCOVER ───── */
-.discover-list { padding: 0 14px; display: flex; flex-direction: column; gap: 12px; }
-
-.disc-card {
-  background: var(--white);
-  border-radius: 14px; padding: 16px;
-  display: flex; align-items: center; gap: 14px;
-  border: 1.5px solid rgba(0,0,0,0.07);
-  cursor: pointer; transition: transform 0.15s, border-color 0.15s;
+/* ── PROFILE ── */
+.prof-top{
+  background:var(--dark);padding:32px 18px 24px;
+  text-align:center;position:relative;overflow:hidden;
 }
-.disc-card:active { transform: scale(0.98); border-color: var(--red); }
-.disc-ico {
-  width: 56px; height: 56px; border-radius: 12px;
-  background: var(--cream); display: flex; align-items: center; justify-content: center;
-  font-size: 28px; flex-shrink: 0;
+.prof-top::before{
+  content:'OSS';position:absolute;right:-8px;bottom:-12px;
+  font-family:'Unbounded',sans-serif;font-size:88px;font-weight:900;
+  color:rgba(255,255,255,0.03);letter-spacing:4px;
 }
-.disc-name {
-  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: var(--dark);
+.prof-ava{
+  width:80px;height:80px;border-radius:16px;
+  background:var(--red);display:flex;align-items:center;justify-content:center;
+  font-family:'Unbounded',sans-serif;font-size:36px;font-weight:900;color:var(--white);
+  margin:0 auto 14px;
+  border:2px solid rgba(255,255,255,0.1);position:relative;z-index:1;
 }
-.disc-desc {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 3px;
+.prof-name{
+  font-family:'Unbounded',sans-serif;
+  font-size:26px;font-weight:900;color:var(--white);letter-spacing:-0.5px;
+  position:relative;z-index:1;
 }
-.disc-stars {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--yellow); margin-top: 5px;
+.prof-rank{
+  display:inline-block;margin-top:8px;
+  background:var(--yellow);color:var(--dark);
+  border-radius:3px;padding:4px 12px;
+  font-family:'Fira Code',monospace;
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;
+  position:relative;z-index:1;
 }
-.btn-acq {
-  background: var(--red); color: var(--white);
-  border: none; border-radius: 8px; padding: 11px 14px;
-  font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800;
-  cursor: pointer; line-height: 1.3; text-align: center;
-  transition: opacity 0.15s;
+.prof-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 12px;}
+.prof-card{
+  background:var(--white);border-radius:10px;padding:14px;
+  border:1px solid rgba(0,0,0,0.07);
 }
-.btn-acq:active { opacity: 0.7; }
-
-/* ───── PROFILE ───── */
-.profile-top {
-  background: var(--dark); padding: 36px 20px 28px;
-  text-align: center; position: relative; overflow: hidden;
+.prof-card .pv{
+  font-family:'Unbounded',sans-serif;
+  font-size:26px;font-weight:900;color:var(--dark);line-height:1;
 }
-.profile-top::before {
-  content: 'DEV';
-  position: absolute; right: -10px; bottom: -10px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 100px; color: rgba(255,255,255,0.03);
-  letter-spacing: 4px;
-}
-.prof-avatar {
-  width: 84px; height: 84px; border-radius: 20px;
-  background: var(--red);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 44px; color: var(--white);
-  margin: 0 auto 16px;
-  border: 2.5px solid rgba(255,255,255,0.12);
-  position: relative; z-index: 1;
-}
-.prof-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 34px; color: var(--white); letter-spacing: 1px;
-  position: relative; z-index: 1;
-}
-.prof-rank-badge {
-  display: inline-block; margin-top: 10px;
-  background: var(--yellow); color: var(--dark);
-  border-radius: 4px; padding: 5px 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-  position: relative; z-index: 1;
-}
-
-.prof-stats {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 10px; padding: 16px 14px;
-}
-.prof-stat-card {
-  background: var(--white);
-  border-radius: 12px; padding: 16px;
-  border: 1.5px solid rgba(0,0,0,0.07);
-}
-.prof-stat-card .psv {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px; color: var(--dark); line-height: 1;
-}
-.prof-stat-card .psl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: rgba(0,0,0,0.38); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px;
+.prof-card .pl{
+  font-family:'Fira Code',monospace;
+  font-size:8px;color:rgba(0,0,0,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;
 }
 
 /* Achievements */
-.ach-list { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; }
-.ach-item {
-  background: var(--white);
-  border-radius: 12px; padding: 14px;
-  display: flex; align-items: center; gap: 12px;
-  border: 1.5px solid rgba(0,0,0,0.07);
+.ach-list{padding:0 12px;display:flex;flex-direction:column;gap:7px;}
+.ach-row{
+  background:var(--white);border-radius:10px;padding:13px;
+  display:flex;align-items:center;gap:11px;
+  border:1px solid rgba(0,0,0,0.07);
 }
-.ach-item.done { border-color: var(--yellow); background: #FFFBEF; }
-.ach-ico { font-size: 26px; flex-shrink: 0; }
-.ach-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--dark); }
-.ach-desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 2px; }
-.ach-tag {
-  margin-left: auto;
-  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
-  background: var(--dark); color: rgba(255,255,255,0.25);
-  border-radius: 4px; padding: 4px 8px; text-transform: uppercase;
+.ach-row.done{border-color:var(--yellow);background:#FFFBF0;}
+.ach-ic{font-size:24px;flex-shrink:0;}
+.ach-n{font-family:'Onest',sans-serif;font-size:13px;font-weight:800;color:var(--dark);}
+.ach-d{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(0,0,0,0.38);margin-top:1px;
 }
-.ach-item.done .ach-tag { background: var(--yellow); color: var(--dark); }
+.ach-tag{
+  margin-left:auto;
+  font-family:'Fira Code',monospace;font-size:8px;font-weight:600;
+  background:var(--dark);color:rgba(255,255,255,0.2);
+  border-radius:3px;padding:3px 7px;text-transform:uppercase;
+}
+.ach-row.done .ach-tag{background:var(--yellow);color:var(--dark);}
 
-/* ───── MODALS ───── */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 500; display: none; align-items: flex-end;
-  backdrop-filter: blur(6px);
+/* ═══════════════════════════════
+   MODALS
+═══════════════════════════════ */
+.modal-bg{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.65);
+  z-index:500;display:none;align-items:flex-end;
+  backdrop-filter:blur(6px);
 }
-.modal-overlay.open { display: flex; }
-
-.sheet {
-  background: var(--cream);
-  border-radius: 22px 22px 0 0;
-  padding: 24px 20px 40px;
-  width: 100%;
-  animation: slideUp 0.28s cubic-bezier(0.34,1.4,0.64,1);
-  max-height: 90vh; overflow-y: auto;
+.modal-bg.open{display:flex;}
+.sheet{
+  background:var(--cream);
+  border-radius:20px 20px 0 0;
+  padding:22px 18px 38px;
+  width:100%;
+  animation:slideUp .25s cubic-bezier(0.34,1.3,0.64,1);
+  max-height:90vh;overflow-y:auto;
 }
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.sheet-grip{
+  width:40px;height:4px;background:rgba(0,0,0,0.12);
+  border-radius:2px;margin:0 auto 20px;
 }
-.sheet-handle {
-  width: 44px; height: 4px; background: rgba(0,0,0,0.15);
-  border-radius: 2px; margin: 0 auto 22px;
+.sheet-h{
+  font-family:'Unbounded',sans-serif;
+  font-size:28px;font-weight:900;color:var(--dark);
+  letter-spacing:-0.5px;margin-bottom:3px;
 }
-.sheet-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 34px; color: var(--dark); letter-spacing: 1px; margin-bottom: 4px;
-}
-.sheet-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: rgba(0,0,0,0.4); margin-bottom: 20px;
-  text-transform: uppercase; letter-spacing: 0.05em;
-}
-
-.repo-opts { display: flex; flex-direction: column; gap: 8px; }
-.repo-opt {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--white); border-radius: 12px; padding: 14px;
-  cursor: pointer; border: 1.5px solid rgba(0,0,0,0.07);
-  transition: border-color 0.15s;
-}
-.repo-opt:active { border-color: var(--red); }
-.repo-opt-ico { font-size: 26px; flex-shrink: 0; }
-.repo-opt-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: var(--dark); }
-.repo-opt-cost {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 2px;
+.sheet-sub{
+  font-family:'Fira Code',monospace;
+  font-size:10px;color:rgba(0,0,0,0.38);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:18px;
 }
 
-.fork-pair {
-  background: var(--white); border-radius: 14px; padding: 18px;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  margin-bottom: 10px; cursor: pointer;
-  border: 1.5px solid rgba(0,0,0,0.07);
-  transition: border-color 0.15s;
+.repo-opts{display:flex;flex-direction:column;gap:7px;}
+.repo-opt{
+  display:flex;align-items:center;gap:11px;
+  background:var(--white);border-radius:10px;padding:13px;
+  cursor:pointer;border:1px solid rgba(0,0,0,0.07);
+  transition:border-color .12s;
 }
-.fork-pair:active { border-color: var(--red); }
-.fp-item { text-align: center; }
-.fp-item .fi { font-size: 32px; }
-.fp-item .fn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: rgba(0,0,0,0.45); margin-top: 4px;
-}
-.fp-plus {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px; color: rgba(0,0,0,0.2);
-}
-.fp-arrow {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px; color: var(--red);
+.repo-opt:active{border-color:var(--red);}
+.ro-ic{font-size:24px;flex-shrink:0;}
+.ro-n{font-family:'Onest',sans-serif;font-size:14px;font-weight:800;color:var(--dark);}
+.ro-c{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(0,0,0,0.38);margin-top:2px;
 }
 
-.btn-main {
-  width: 100%; padding: 17px;
-  background: var(--red); color: var(--white);
-  border: none; border-radius: 8px;
-  font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800;
-  cursor: pointer; transition: opacity 0.15s;
-  box-shadow: 0 4px 0 rgba(180,0,0,0.4);
+.fork-pair{
+  background:var(--white);border-radius:12px;padding:16px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:8px;cursor:pointer;
+  border:1px solid rgba(0,0,0,0.07);
+  transition:border-color .12s;
 }
-.btn-main:active { opacity: 0.85; box-shadow: none; transform: translateY(2px); }
-.btn-cancel {
-  width: 100%; padding: 14px; margin-top: 8px;
-  background: none; color: rgba(0,0,0,0.35);
-  border: none;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  cursor: pointer;
+.fork-pair:active{border-color:var(--red);}
+.fp-it{text-align:center;}
+.fp-ic{font-size:30px;}
+.fp-nm{
+  font-family:'Fira Code',monospace;
+  font-size:9px;color:rgba(0,0,0,0.4);margin-top:3px;
 }
-
-/* ───── CELEBRATION ───── */
-.celeb-overlay {
-  position: fixed; inset: 0; z-index: 999;
-  background: var(--dark);
-  display: none;
-  flex-direction: column; align-items: center; justify-content: center;
-  animation: popIn 0.35s cubic-bezier(0.34,1.4,0.64,1);
+.fp-pl{
+  font-family:'Unbounded',sans-serif;
+  font-size:22px;font-weight:900;color:rgba(0,0,0,0.15);
 }
-.celeb-overlay.show { display: flex; }
-@keyframes popIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-.celeb-emoji { font-size: 80px; animation: bounce 0.5s ease infinite alternate; }
-@keyframes bounce {
-  from { transform: translateY(0); }
-  to { transform: translateY(-14px); }
-}
-.celeb-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 11vw, 52px);
-  color: var(--yellow); text-align: center;
-  padding: 16px 24px 0; line-height: 1.05;
-}
-.celeb-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; color: rgba(255,255,255,0.4);
-  margin-top: 12px; text-align: center; padding: 0 24px;
+.fp-ar{
+  font-family:'Unbounded',sans-serif;
+  font-size:22px;font-weight:900;color:var(--red);
 }
 
-/* ───── TOAST ───── */
-.toast {
-  position: fixed; top: 72px; left: 50%; transform: translateX(-50%);
-  background: var(--dark); color: var(--white);
-  border-radius: 8px; padding: 11px 22px;
-  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
-  z-index: 9998; opacity: 0; transition: opacity 0.25s;
-  white-space: nowrap; pointer-events: none;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+.btn-cancel{
+  width:100%;padding:13px;margin-top:8px;
+  background:none;color:rgba(0,0,0,0.3);border:none;
+  font-family:'Fira Code',monospace;font-size:11px;cursor:pointer;
 }
-.toast.show { opacity: 1; }
 
-::-webkit-scrollbar { width: 0; }
+/* ═══════════════════════════════
+   CELEBRATION
+═══════════════════════════════ */
+.celeb{
+  position:fixed;inset:0;z-index:999;
+  background:var(--dark);
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  animation:popIn .3s cubic-bezier(0.34,1.3,0.64,1);
+}
+.celeb.show{display:flex;}
+@keyframes popIn{from{transform:scale(.88);opacity:0;}to{transform:scale(1);opacity:1;}}
+.celeb-em{font-size:76px;animation:bob .45s ease infinite alternate;}
+@keyframes bob{from{transform:translateY(0);}to{transform:translateY(-12px);}}
+.celeb-t{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(28px,9vw,44px);font-weight:900;
+  color:var(--yellow);text-align:center;
+  padding:14px 22px 0;line-height:1.1;
+}
+.celeb-s{
+  font-family:'Fira Code',monospace;
+  font-size:12px;color:rgba(255,255,255,0.38);
+  margin-top:10px;text-align:center;padding:0 22px;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;top:68px;left:50%;transform:translateX(-50%);
+  background:var(--dark);color:var(--white);
+  border-radius:6px;padding:10px 20px;
+  font-family:'Fira Code',monospace;font-size:12px;font-weight:600;
+  z-index:9998;opacity:0;transition:opacity .22s;
+  white-space:nowrap;pointer-events:none;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 4px 18px rgba(0,0,0,0.28);
+}
+.toast.show{opacity:1;}
+
+::-webkit-scrollbar{width:0;}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     LANDING
-═══════════════════════════════════════ -->
+<!-- ══════════════════════════════════════
+     LANDING — always shows first
+══════════════════════════════════════ -->
 <div id="screen-landing" class="screen active">
-  <div class="landing-stripes"></div>
-  <div class="landing-inner">
+  <div class="land-cream-block"></div>
+  <div class="land-yellow-bar"></div>
+  <div class="land-red-dot"></div>
 
-    <div class="badge-pill">v1.0 · Open Source Idle</div>
+  <div class="land-inner">
 
-    <div class="hero-stack">
-      <div class="hero-eyebrow">// Fork Ideas. Mine Value.</div>
-      <div class="hero-big">
-        <span class="word-fork">FORK</span>
-        <span class="word-lab" style="position:relative;">
-          LAB
-          <span class="sticker-fun">.FUN</span>
-        </span>
-      </div>
-      <p class="hero-tagline">
-        Build <b>repositories</b>.<br>
-        Gain <b>stars</b>. Fork projects.<br>
-        Mine real <b>value</b>.
-      </p>
-
-      <button class="btn-connect" onclick="simulateLogin()">
-        <svg class="btn-connect-gh-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-        </svg>
-        Connect GitHub → Start Mining
-      </button>
+    <!-- Custom SVG wordmark at top -->
+    <div class="logo-lockup">
+      <svg width="160" height="36" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Fork tines — custom drawn -->
+        <rect x="2" y="2" width="4" height="12" rx="2" fill="#0D0D0D"/>
+        <rect x="9" y="2" width="4" height="12" rx="2" fill="#0D0D0D"/>
+        <rect x="16" y="2" width="4" height="12" rx="2" fill="#0D0D0D"/>
+        <path d="M4 14 Q4 20 10 22 Q16 20 16 14" stroke="#0D0D0D" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <rect x="8.5" y="22" width="5" height="10" rx="2.5" fill="#0D0D0D"/>
+        <!-- FORKLAB text mark -->
+        <text x="26" y="27" font-family="'Unbounded', sans-serif" font-size="22" font-weight="900" fill="#0D0D0D" letter-spacing="-0.5">FORK</text>
+        <text x="96" y="27" font-family="'Unbounded', sans-serif" font-size="22" font-weight="900" fill="#FF3B30" letter-spacing="-0.5">LAB</text>
+      </svg>
     </div>
 
-    <div class="landing-foot">
-      <div class="lf-item"><div class="lf-num">∞</div><div class="lf-lbl">Repos</div></div>
-      <div class="lf-item"><div class="lf-num">9</div><div class="lf-lbl">Levels</div></div>
-      <div class="lf-item"><div class="lf-num">x50</div><div class="lf-lbl">Max Mult</div></div>
+    <div class="land-hero">
+      <div class="land-kicker">// Open source idle game</div>
+
+      <div class="land-title">
+        <span class="t-fork">FORK</span>
+        <span class="t-lab">
+          LAB
+          <span class="land-badge-fun">.FUN</span>
+        </span>
+      </div>
+
+      <p class="land-tagline">
+        Build <strong>repos</strong>.<br>
+        Gain <strong>stars</strong>. Mine <strong>coins</strong>.
+      </p>
+
+      <div class="land-btns">
+        <!-- Returning player card (shown if save exists) -->
+        <div class="return-card" id="returnCard">
+          <div class="return-ava" id="returnAva">?</div>
+          <div>
+            <div class="return-name" id="returnName">—</div>
+            <div class="return-rank" id="returnRank">—</div>
+          </div>
+        </div>
+
+        <!-- CTA buttons -->
+        <button class="btn-land-primary" id="btnNew" onclick="startNew()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+          CONNECT GITHUB
+        </button>
+
+        <button class="btn-land-continue hidden" id="btnContinue" onclick="continueGame()">
+          Continue → <span id="btnContinueCoins" style="font-family:'Fira Code',monospace;color:var(--yellow);margin-left:4px;"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="land-stats">
+      <div class="ls-item"><div class="ls-num">∞</div><div class="ls-lbl">Repos</div></div>
+      <div class="ls-item"><div class="ls-num">9</div><div class="ls-lbl">Levels</div></div>
+      <div class="ls-item"><div class="ls-num">×50</div><div class="ls-lbl">Max Mult</div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
+<!-- ══════════════════════════════════════
      MAIN APP
-═══════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div id="screen-app" class="screen" style="flex-direction:column;">
 
-  <!-- Header -->
   <div class="app-header">
-    <div class="header-avatar" id="headerAvatar">F</div>
-    <div class="header-wordmark">FORK<span>LAB</span></div>
-    <div style="flex:1"></div>
-    <div class="header-coin-pill">
-      <span style="font-size:15px;">🪙</span>
-      <span class="cv" id="headerCoins">0</span>
+    <div class="hdr-avatar" id="hdrAva">F</div>
+    <div class="hdr-logo">
+      <div class="hdr-logo-mark">FORK<em>LAB</em></div>
+    </div>
+    <div class="hdr-coins">
+      <span style="font-size:14px;">🪙</span>
+      <span id="hdrCoins">0</span>
     </div>
   </div>
 
-  <!-- Stats strip -->
   <div class="stats-strip">
-    <div class="stat-chip"><div class="sv" id="statStars">0</div><div class="sl">Stars ⭐</div></div>
-    <div class="stat-chip"><div class="sv" id="statHash">0</div><div class="sl">Hash ⚡</div></div>
-    <div class="stat-chip"><div class="sv" id="statRepos">0</div><div class="sl">Repos</div></div>
-    <div class="stat-chip"><div class="sv" id="statMult">×1</div><div class="sl">Mult 🔥</div></div>
+    <div class="sc"><div class="sv" id="stStars">0</div><div class="sl">Stars ⭐</div></div>
+    <div class="sc"><div class="sv" id="stHash">0</div><div class="sl">Hash ⚡</div></div>
+    <div class="sc"><div class="sv" id="stRepos">0</div><div class="sl">Repos</div></div>
+    <div class="sc"><div class="sv" id="stMult">×1</div><div class="sl">Mult 🔥</div></div>
   </div>
 
-  <!-- Tabs -->
-  <div class="main-content" id="mainContent">
+  <div class="main-content">
 
-    <!-- HOME -->
+    <!-- HOME TAB -->
     <div id="tab-home" class="tab-content">
-      <div class="home-hero">
-        <div class="home-label">// TOTAL COINS MINED</div>
-        <div class="home-big-num" id="bigCoins">0</div>
-        <div class="home-cps">+<b id="cps">0.00</b>&nbsp;coins/sec</div>
-        <div class="xp-track"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-        <div class="xp-text" id="xpLabel">0 / 100 XP</div>
+      <div class="home-top">
+        <div class="ht-label">// total coins mined</div>
+        <div class="ht-coins" id="bigCoins">0</div>
+        <div class="ht-cps">+<b id="cps">0.00</b> coins/sec</div>
+        <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpFill" style="width:0%"></div></div>
+        <div class="xp-lbl" id="xpLbl">0 / 100 XP</div>
       </div>
 
-      <div class="home-grid">
-        <div class="action-tile" onclick="openCreateRepo()">
-          <span class="at-icon">➕</span>
-          <div class="at-title">New Repo</div>
-          <div class="at-sub">Start building</div>
+      <div class="action-grid">
+        <div class="at" onclick="openCreateRepo()">
+          <span class="at-ic">➕</span>
+          <div class="at-t">New Repo</div>
+          <div class="at-s">Start building</div>
         </div>
-        <div class="action-tile" onclick="openForkModal()">
-          <span class="at-icon">🍴</span>
-          <div class="at-title">Fork</div>
-          <div class="at-sub">Combine repos</div>
+        <div class="at" onclick="openForkModal()">
+          <span class="at-ic">🍴</span>
+          <div class="at-t">Fork</div>
+          <div class="at-s">Combine repos</div>
         </div>
-        <div class="action-tile" onclick="switchTab('network')">
-          <span class="at-icon">🌐</span>
-          <div class="at-title">Network</div>
-          <div class="at-sub">View ecosystem</div>
+        <div class="at" onclick="switchTab('network')">
+          <span class="at-ic">🌐</span>
+          <div class="at-t">Network</div>
+          <div class="at-s">View ecosystem</div>
         </div>
-        <div class="action-tile" onclick="switchTab('discover')">
-          <span class="at-icon">🔍</span>
-          <div class="at-title">Discover</div>
-          <div class="at-sub">Find rare repos</div>
+        <div class="at" onclick="switchTab('discover')">
+          <span class="at-ic">🔍</span>
+          <div class="at-t">Discover</div>
+          <div class="at-s">Find rare repos</div>
         </div>
       </div>
 
-      <div class="section-head"><h2>Activity</h2><span>Live Feed</span></div>
-      <div class="activity-list" id="activityFeed">
-        <div class="act-item">
-          <div class="act-ico">🚀</div>
+      <div class="sh"><h2>Activity</h2><em>live feed</em></div>
+      <div class="act-list" id="actFeed">
+        <div class="act-row">
+          <div class="ar-ic">🚀</div>
           <div>
-            <div class="act-title">Welcome to ForkLab!</div>
-            <div class="act-sub">create your first repo to start</div>
+            <div class="ar-t">Welcome to ForkLab!</div>
+            <div class="ar-s">create your first repo to start mining</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- REPOS -->
+    <!-- REPOS TAB -->
     <div id="tab-repos" class="tab-content" style="display:none">
-      <div class="repos-header">
-        <div class="section-head" style="padding:0"><h2>My Repos</h2></div>
-        <button class="btn-frk" onclick="openCreateRepo()" style="font-size:13px;padding:10px 14px;border-radius:8px;">+ NEW</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 12px 8px;">
+        <div class="sh" style="padding:0"><h2>My Repos</h2></div>
+        <button class="btn-fork" onclick="openCreateRepo()" style="font-size:12px;padding:9px 13px;border-radius:7px;">+ NEW</button>
       </div>
-      <div class="repos-list" id="reposGrid">
-        <div style="text-align:center;padding:50px 20px;">
-          <div style="font-size:52px;margin-bottom:12px;">📦</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(0,0,0,0.2);">NO REPOS YET</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,0,0,0.3);margin-top:6px;">Create your first repo to start mining</div>
+      <div class="repo-list" id="reposGrid">
+        <div style="text-align:center;padding:48px 20px;">
+          <div style="font-size:48px;margin-bottom:10px;">📦</div>
+          <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;color:rgba(0,0,0,0.18);">NO REPOS YET</div>
+          <div style="font-family:'Fira Code',monospace;font-size:11px;color:rgba(0,0,0,0.28);margin-top:6px;">create your first repo to start</div>
         </div>
       </div>
     </div>
 
-    <!-- NETWORK -->
+    <!-- NETWORK TAB -->
     <div id="tab-network" class="tab-content" style="display:none">
-      <div class="section-head" style="background:var(--dark);margin:0;padding:16px 16px 10px;">
-        <h2 class="light">Ecosystem</h2><span style="color:rgba(255,255,255,0.25)">Network Map</span>
+      <div class="sh" style="background:var(--dark);margin:0;padding:14px 14px 8px;">
+        <h2 class="w">Ecosystem</h2><em style="color:rgba(255,255,255,.22);">network map</em>
       </div>
-      <div class="network-canvas-wrap">
-        <canvas id="network-canvas" height="300"></canvas>
+      <div class="netmap-wrap">
+        <canvas id="netcanvas" height="300"></canvas>
       </div>
       <div class="mult-card">
-        <div class="mult-val" id="multiplierValue">×1</div>
-        <div class="mult-lbl">Ecosystem Multiplier</div>
+        <div class="mult-v" id="multVal">×1</div>
+        <div class="mult-l">Ecosystem Multiplier</div>
       </div>
-      <div class="section-head"><h2>Network Stats</h2></div>
-      <div class="net-stats" id="networkStats"></div>
+      <div class="sh"><h2>Stats</h2></div>
+      <div class="net-stats-list" id="netStats"></div>
     </div>
 
-    <!-- DISCOVER -->
+    <!-- DISCOVER TAB -->
     <div id="tab-discover" class="tab-content" style="display:none">
-      <div class="section-head"><h2>Discover</h2><span>Rare repos</span></div>
-      <div class="discover-list" id="discoverGrid"></div>
+      <div class="sh"><h2>Discover</h2><em>rare repos</em></div>
+      <div class="disc-list" id="discGrid"></div>
     </div>
 
-    <!-- PROFILE -->
+    <!-- PROFILE TAB -->
     <div id="tab-profile" class="tab-content" style="display:none">
-      <div class="profile-top">
-        <div class="prof-avatar" id="profileAvatar">?</div>
-        <div class="prof-name" id="profileName">DEVELOPER</div>
-        <div class="prof-rank-badge" id="profileRankBadge">Intern</div>
+      <div class="prof-top">
+        <div class="prof-ava" id="profAva">?</div>
+        <div class="prof-name" id="profName">DEVELOPER</div>
+        <div class="prof-rank" id="profRank">Intern</div>
       </div>
-      <div class="prof-stats" id="profileStats"></div>
-      <div class="section-head"><h2>Achievements</h2><span id="achCount">0/9</span></div>
-      <div class="ach-list" id="achievementsGrid"></div>
+      <div class="prof-grid" id="profStats"></div>
+      <div class="sh"><h2>Achievements</h2><em id="achCount">0/9</em></div>
+      <div class="ach-list" id="achGrid"></div>
     </div>
 
   </div>
 
-  <!-- Bottom Nav -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+  <nav class="bot-nav">
+    <button class="ni active" onclick="switchTab('home')" id="nav-home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
         <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-      Home
+      </svg>Home
     </button>
-    <button class="nav-item" onclick="switchTab('repos')" id="nav-repos">
+    <button class="ni" onclick="switchTab('repos')" id="nav-repos">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-      Repos
+      </svg>Repos
     </button>
-    <button class="nav-item" onclick="switchTab('network')" id="nav-network">
+    <button class="ni" onclick="switchTab('network')" id="nav-network">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="12" cy="12" r="2"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/>
         <circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/>
         <line x1="6" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="18" y2="12"/>
         <line x1="12" y1="6" x2="12" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/>
-      </svg>
-      Network
+      </svg>Network
     </button>
-    <button class="nav-item" onclick="switchTab('discover')" id="nav-discover">
+    <button class="ni" onclick="switchTab('discover')" id="nav-discover">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      Discover
+      </svg>Discover
     </button>
-    <button class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+    <button class="ni" onclick="switchTab('profile')" id="nav-profile">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
-      </svg>
-      Profile
+      </svg>Profile
     </button>
   </nav>
 </div>
 
-<!-- ── MODAL: CREATE REPO ── -->
-<div class="modal-overlay" id="modalCreate">
+<!-- MODAL CREATE -->
+<div class="modal-bg" id="modalCreate">
   <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">New Repository</div>
-    <div class="sheet-sub">Choose template · Coins deducted</div>
+    <div class="sheet-grip"></div>
+    <div class="sheet-h">New Repository</div>
+    <div class="sheet-sub">pick a template · coins deducted</div>
     <div class="repo-opts" id="repoOpts"></div>
     <button class="btn-cancel" onclick="closeModal('modalCreate')">Cancel</button>
   </div>
 </div>
 
-<!-- ── MODAL: FORK ── -->
-<div class="modal-overlay" id="modalFork">
+<!-- MODAL FORK -->
+<div class="modal-bg" id="modalFork">
   <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">Fork Repos</div>
-    <div class="sheet-sub">Combine two repos → unlock new tier</div>
+    <div class="sheet-grip"></div>
+    <div class="sheet-h">Fork Repos</div>
+    <div class="sheet-sub">combine two repos → unlock new tier</div>
     <div id="forkContent"></div>
     <button class="btn-cancel" onclick="closeModal('modalFork')">Cancel</button>
   </div>
 </div>
 
-<!-- ── CELEBRATION ── -->
-<div class="celeb-overlay" id="celebOverlay">
-  <div class="celeb-emoji" id="celebEmoji">🎉</div>
-  <div class="celeb-title" id="celebTitle">NEW TIER UNLOCKED</div>
-  <div class="celeb-sub" id="celebSub">Your ecosystem grows stronger</div>
+<!-- CELEBRATION -->
+<div class="celeb" id="celebOverlay">
+  <div class="celeb-em" id="celebEm">🎉</div>
+  <div class="celeb-t" id="celebT">NEW TIER UNLOCKED</div>
+  <div class="celeb-s" id="celebS">Your ecosystem expands</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══════════════════════════════════════
-   DATA
-═══════════════════════════════════════ */
-const REPO_TYPES = [
-  { id:'readme',    name:'README.md',    icon:'📄', power:1,   stars:0.5, cost:0,    income:0.1,  tier:0 },
-  { id:'landing',   name:'Landing Page', icon:'🌐', power:2,   stars:1,   cost:50,   income:0.3,  tier:1 },
-  { id:'calculator',name:'Calculator',   icon:'🧮', power:3,   stars:2,   cost:120,  income:0.6,  tier:1 },
-  { id:'todo',      name:'Todo App',     icon:'✅', power:4,   stars:3,   cost:200,  income:1.0,  tier:1 },
-  { id:'portfolio', name:'Portfolio',    icon:'🎨', power:8,   stars:6,   cost:0,    income:2.0,  tier:2 },
-  { id:'webapp',    name:'Web App',      icon:'💻', power:15,  stars:12,  cost:0,    income:4.0,  tier:3 },
-  { id:'saas',      name:'SaaS',         icon:'☁️', power:30,  stars:25,  cost:0,    income:10,   tier:4 },
-  { id:'framework', name:'Framework',    icon:'🏗️', power:60,  stars:50,  cost:0,    income:25,   tier:5 },
-  { id:'platform',  name:'Platform',     icon:'🚀', power:120, stars:100, cost:0,    income:60,   tier:6 },
-  { id:'ecosystem', name:'Ecosystem',    icon:'🌐', power:300, stars:250, cost:0,    income:150,  tier:7 },
+/* ═══════════════ DATA ═══════════════ */
+const REPO_TYPES=[
+  {id:'readme',    name:'README.md',    icon:'📄',power:1,  stars:.5, cost:0,   income:.1, tier:0},
+  {id:'landing',   name:'Landing Page', icon:'🌐',power:2,  stars:1,  cost:50,  income:.3, tier:1},
+  {id:'calculator',name:'Calculator',   icon:'🧮',power:3,  stars:2,  cost:120, income:.6, tier:1},
+  {id:'todo',      name:'Todo App',     icon:'✅',power:4,  stars:3,  cost:200, income:1,  tier:1},
+  {id:'portfolio', name:'Portfolio',    icon:'🎨',power:8,  stars:6,  cost:0,   income:2,  tier:2},
+  {id:'webapp',    name:'Web App',      icon:'💻',power:15, stars:12, cost:0,   income:4,  tier:3},
+  {id:'saas',      name:'SaaS',         icon:'☁️',power:30, stars:25, cost:0,   income:10, tier:4},
+  {id:'framework', name:'Framework',    icon:'🏗️',power:60, stars:50, cost:0,   income:25, tier:5},
+  {id:'platform',  name:'Platform',     icon:'🚀',power:120,stars:100,cost:0,   income:60, tier:6},
+  {id:'ecosystem', name:'Ecosystem',    icon:'🌐',power:300,stars:250,cost:0,   income:150,tier:7},
+];
+const FORK_RECIPES=[
+  {inputs:['readme','readme'],       output:'portfolio'},
+  {inputs:['landing','calculator'],  output:'webapp'},
+  {inputs:['calculator','todo'],     output:'webapp'},
+  {inputs:['webapp','todo'],         output:'saas'},
+  {inputs:['saas','saas'],           output:'framework'},
+  {inputs:['framework','framework'], output:'platform'},
+  {inputs:['platform','platform'],   output:'ecosystem'},
+];
+const DISCOVER=[
+  {name:'Weather API',    icon:'🌤️',desc:'Real-time weather data',    stars:2400, cost:300, rId:'calculator'},
+  {name:'Design System',  icon:'🎨',desc:'Component library',          stars:5200, cost:600, rId:'landing'},
+  {name:'Game Engine',    icon:'🎮',desc:'2D browser game framework',  stars:8900, cost:1200,rId:'webapp'},
+  {name:'Analytics SDK',  icon:'📊',desc:'Event tracking library',     stars:3600, cost:500, rId:'calculator'},
+  {name:'Markdown Parser',icon:'📝',desc:'Fast MD renderer',           stars:1800, cost:200, rId:'readme'},
+  {name:'Auth Library',   icon:'🔐',desc:'OAuth & JWT helpers',        stars:6700, cost:900, rId:'webapp'},
+  {name:'UI Framework',   icon:'⚡',desc:'Reactive frontend lib',      stars:12400,cost:2000,rId:'framework'},
+  {name:'Database ORM',   icon:'🗄️',desc:'Type-safe queries',          stars:9200, cost:1500,rId:'saas'},
+];
+const RANKS=['Intern','Junior Dev','Developer','Senior Dev','Lead Dev','Architect','Founder','Visionary','Open Source Legend'];
+const XP_THR=[100,300,700,1500,3000,6000,12000,25000,Infinity];
+const ACHIEVEMENTS=[
+  {id:'first',   name:'First Commit',      icon:'🌱',desc:'Create your first repo',        check:s=>s.repos.length>=1},
+  {id:'s100',    name:'100 Stars',          icon:'⭐',desc:'Collect 100 stars',             check:s=>s.totalStars>=100},
+  {id:'s1k',     name:'1,000 Stars',        icon:'🌟',desc:'Collect 1000 stars',            check:s=>s.totalStars>=1000},
+  {id:'fork1',   name:'First Fork',         icon:'🍴',desc:'Fork two repositories',         check:s=>s.totalForks>=1},
+  {id:'saas',    name:'First SaaS',         icon:'☁️',desc:'Build a SaaS product',          check:s=>s.repos.some(r=>r.typeId==='saas')},
+  {id:'fw',      name:'Framework',          icon:'🏗️',desc:'Build a Framework',             check:s=>s.repos.some(r=>r.typeId==='framework')},
+  {id:'hero',    name:'Open Source Hero',   icon:'🦸',desc:'Reach 10,000 stars',            check:s=>s.totalStars>=10000},
+  {id:'builder', name:'Ecosystem Builder',  icon:'🌐',desc:'Have 10 repositories',          check:s=>s.repos.length>=10},
+  {id:'unicorn', name:'Tech Unicorn',       icon:'🦄',desc:'Earn 1,000,000 coins',          check:s=>s.coins>=1000000},
 ];
 
-const FORK_RECIPES = [
-  { inputs:['readme','readme'],       output:'portfolio' },
-  { inputs:['landing','calculator'],  output:'webapp' },
-  { inputs:['calculator','todo'],     output:'webapp' },
-  { inputs:['webapp','todo'],         output:'saas' },
-  { inputs:['saas','saas'],           output:'framework' },
-  { inputs:['framework','framework'], output:'platform' },
-  { inputs:['platform','platform'],   output:'ecosystem' },
-];
-
-const DISCOVER_REPOS = [
-  { name:'Weather API',    icon:'🌤️', desc:'Real-time weather data',     stars:2400, cost:300,  repoId:'calculator' },
-  { name:'Design System',  icon:'🎨', desc:'Component library',           stars:5200, cost:600,  repoId:'landing' },
-  { name:'Game Engine',    icon:'🎮', desc:'2D browser game framework',   stars:8900, cost:1200, repoId:'webapp' },
-  { name:'Analytics SDK',  icon:'📊', desc:'Event tracking library',      stars:3600, cost:500,  repoId:'calculator' },
-  { name:'Markdown Parser',icon:'📝', desc:'Fast MD renderer',            stars:1800, cost:200,  repoId:'readme' },
-  { name:'Auth Library',   icon:'🔐', desc:'OAuth & JWT helpers',         stars:6700, cost:900,  repoId:'webapp' },
-  { name:'UI Framework',   icon:'⚡', desc:'Reactive frontend lib',       stars:12400,cost:2000, repoId:'framework' },
-  { name:'Database ORM',   icon:'🗄️', desc:'Type-safe queries',           stars:9200, cost:1500, repoId:'saas' },
-];
-
-const RANKS = ['Intern','Junior Dev','Developer','Senior Dev','Lead Dev','Architect','Founder','Visionary','Open Source Legend'];
-const XP_THRESHOLDS = [100,300,700,1500,3000,6000,12000,25000,Infinity];
-
-const ACHIEVEMENTS = [
-  { id:'first_commit', name:'First Commit',       icon:'🌱', desc:'Create your first repository',  check:s=>s.repos.length>=1 },
-  { id:'stars_100',    name:'100 Stars',           icon:'⭐', desc:'Collect 100 stars total',       check:s=>s.totalStars>=100 },
-  { id:'stars_1000',   name:'1,000 Stars',         icon:'🌟', desc:'Collect 1000 stars total',      check:s=>s.totalStars>=1000 },
-  { id:'first_fork',   name:'First Fork',          icon:'🍴', desc:'Fork two repositories',         check:s=>s.totalForks>=1 },
-  { id:'got_saas',     name:'First SaaS',          icon:'☁️', desc:'Build a SaaS product',          check:s=>s.repos.some(r=>r.typeId==='saas') },
-  { id:'got_framework',name:'Framework',           icon:'🏗️', desc:'Build a Framework',             check:s=>s.repos.some(r=>r.typeId==='framework') },
-  { id:'hero',         name:'Open Source Hero',    icon:'🦸', desc:'Reach 10,000 stars',            check:s=>s.totalStars>=10000 },
-  { id:'builder',      name:'Ecosystem Builder',   icon:'🌐', desc:'Have 10 repositories',          check:s=>s.repos.length>=10 },
-  { id:'unicorn',      name:'Tech Unicorn',        icon:'🦄', desc:'Earn 1,000,000 coins',          check:s=>s.coins>=1000000 },
-];
-
-/* ═══════════════════════════════════════
-   STATE
-═══════════════════════════════════════ */
-let state = {
-  username:'Developer', coins:0, totalStars:0, hashPower:0,
-  xp:0, rank:0, repos:[], totalForks:0, totalCoinsEarned:0,
-  activity:[], unlockedAchievements:[], lastSave:Date.now(),
+/* ═══════════════ STATE ═══════════════ */
+let G={
+  username:'Developer',coins:0,totalStars:0,
+  xp:0,rank:0,repos:[],totalForks:0,totalCoinsEarned:0,
+  activity:[],unlocked:[],lastSave:Date.now(),
 };
+const SAVE_KEY='forklab_v3';
+function load(){try{const s=localStorage.getItem(SAVE_KEY);if(s){G={...G,...JSON.parse(s)};return true;}}catch(e){}return false;}
+function save(){G.lastSave=Date.now();localStorage.setItem(SAVE_KEY,JSON.stringify(G));}
 
-function loadState() {
-  try { const s=localStorage.getItem('forklab_v2'); if(s){state={...state,...JSON.parse(s)};return true;} } catch(e){}
-  return false;
-}
-function saveState() { state.lastSave=Date.now(); localStorage.setItem('forklab_v2',JSON.stringify(state)); }
-
-/* ═══════════════════════════════════════
-   UTILS
-═══════════════════════════════════════ */
-function fmt(n) {
-  if(n>=1e9) return (n/1e9).toFixed(1)+'B';
-  if(n>=1e6) return (n/1e6).toFixed(1)+'M';
-  if(n>=1e3) return (n/1e3).toFixed(1)+'K';
-  return Math.floor(n).toString();
-}
-function showToast(msg) {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
-}
-function addActivity(icon,text,sub,val) {
-  state.activity.unshift({icon,text,sub,val,time:Date.now()});
-  if(state.activity.length>20) state.activity.pop();
-}
-function spawnParticle(type,x,y) {
+/* ═══════════════ UTILS ═══════════════ */
+const T=id=>REPO_TYPES.find(r=>r.id===id);
+function fmt(n){if(n>=1e9)return(n/1e9).toFixed(1)+'B';if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return Math.floor(n)+''}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function addAct(ic,tx,sb,vl){G.activity.unshift({ic,tx,sb,vl});if(G.activity.length>20)G.activity.pop();}
+function particle(type,x,y){
   const el=document.createElement('div');
   el.className=type==='star'?'star-particle':'coin-particle';
   el.textContent=type==='star'?'⭐':'🪙';
-  el.style.left=(x+Math.random()*40-20)+'px';
+  el.style.left=(x+Math.random()*36-18)+'px';
   el.style.top=(y||200)+'px';
   document.body.appendChild(el);
-  setTimeout(()=>el.remove(),2000);
+  setTimeout(()=>el.remove(),1900);
 }
-function burst(type,x,y,n=6) { for(let i=0;i<n;i++) setTimeout(()=>spawnParticle(type,x,y),i*80); }
+function burst(type,x,y,n=6){for(let i=0;i<n;i++)setTimeout(()=>particle(type,x,y),i*75);}
 
-/* ═══════════════════════════════════════
-   LOGIN
-═══════════════════════════════════════ */
-function simulateLogin() {
-  const names=['dev_wizard','code_hero','fork_master','star_builder','oss_dev','10xengineer'];
-  state.username=names[Math.floor(Math.random()*names.length)];
-  if(state.repos.length===0) createRepo('readme',true);
-  addActivity('🚀','Joined ForkLab!','Welcome, '+state.username,'');
-  saveState();
-  const lnd=document.getElementById('screen-landing');
-  lnd.style.transition='opacity 0.35s, transform 0.35s';
-  lnd.style.opacity='0'; lnd.style.transform='scale(1.04)';
-  setTimeout(()=>{
-    lnd.classList.remove('active');
-    document.getElementById('screen-app').classList.add('active');
-    updateUI(); startGameLoop();
-  },350);
+/* ═══════════════ LANDING INIT ═══════════════ */
+// Always show landing — check for save and show continue button
+(function initLanding(){
+  const hasSave=load();
+  if(hasSave&&G.username!=='Developer'&&G.repos.length>0){
+    // Show returning player UI
+    document.getElementById('returnCard').classList.add('show');
+    document.getElementById('returnAva').textContent=G.username[0].toUpperCase();
+    document.getElementById('returnName').textContent=G.username;
+    document.getElementById('returnRank').textContent=RANKS[G.rank||0];
+    document.getElementById('btnContinueCoins').textContent=fmt(G.coins)+'🪙';
+    document.getElementById('btnNew').textContent='NEW GAME';
+    document.getElementById('btnNew').style.background='rgba(255,255,255,0.08)';
+    document.getElementById('btnNew').style.boxShadow='none';
+    document.getElementById('btnNew').style.border='1px solid rgba(255,255,255,0.15)';
+    document.getElementById('btnContinue').classList.remove('hidden');
+  }
+})();
+
+function continueGame(){
+  // Offline earnings
+  const elapsed=(Date.now()-G.lastSave)/1000;
+  if(elapsed>30){
+    const earned=calcCPS()*Math.min(elapsed,3600);
+    G.coins+=earned;G.totalCoinsEarned+=earned;
+    setTimeout(()=>toast(`+${fmt(earned)} 🪙 offline earnings!`),600);
+  }
+  goToApp();
+}
+
+function startNew(){
+  const hasSave=load();
+  if(hasSave&&G.repos.length>0){
+    // Reset state
+    G={username:'Developer',coins:0,totalStars:0,xp:0,rank:0,repos:[],totalForks:0,totalCoinsEarned:0,activity:[],unlocked:[],lastSave:Date.now()};
+  }
+  const names=['dev_wizard','code_hero','fork_master','star_builder','oss_dev','10xengineer','nullpointer','git_gud'];
+  G.username=names[Math.floor(Math.random()*names.length)];
+  createRepo('readme',true);
+  addAct('🚀','Joined ForkLab!','Welcome, '+G.username,'');
+  save();
+  goToApp();
   burst('star',window.innerWidth/2,window.innerHeight/2,10);
 }
 
-if(loadState()&&state.username!=='Developer'&&state.repos.length>0) {
+function goToApp(){
+  const lnd=document.getElementById('screen-landing');
+  lnd.style.transition='opacity .32s,transform .32s';
+  lnd.style.opacity='0';lnd.style.transform='scale(1.04)';
   setTimeout(()=>{
-    document.getElementById('screen-landing').classList.remove('active');
+    lnd.classList.remove('active');
     document.getElementById('screen-app').classList.add('active');
-    updateUI(); startGameLoop();
-    const elapsed=(Date.now()-state.lastSave)/1000;
-    if(elapsed>30){
-      const earned=calcCPS()*Math.min(elapsed,3600);
-      state.coins+=earned; state.totalCoinsEarned+=earned;
-      showToast(`+${fmt(earned)} 🪙 offline earnings!`);
-    }
-  },80);
+    updateUI();startLoop();
+  },320);
 }
 
-/* ═══════════════════════════════════════
-   REPO LOGIC
-═══════════════════════════════════════ */
-const getType=id=>REPO_TYPES.find(r=>r.id===id);
-
-function createRepo(typeId,free=false) {
-  const type=getType(typeId);
-  if(!type) return false;
-  if(!free&&state.coins<type.cost){showToast('Not enough coins 🪙');return false;}
-  if(!free) state.coins-=type.cost;
-  state.repos.push({id:Date.now()+Math.random(),typeId,level:1,stars:0});
-  addActivity(type.icon,'Created '+type.name,'Power: '+type.power,'+'+type.income+'/s');
-  checkAchievements(); saveState(); renderRepos(); updateUI();
-  return true;
+/* ═══════════════ GAME LOGIC ═══════════════ */
+function createRepo(typeId,free=false){
+  const type=T(typeId);if(!type)return false;
+  if(!free&&G.coins<type.cost){toast('Not enough coins 🪙');return false;}
+  if(!free)G.coins-=type.cost;
+  G.repos.push({id:Date.now()+Math.random(),typeId,level:1,stars:0});
+  addAct(type.icon,'Created '+type.name,'Power: '+type.power,'+'+type.income+'/s');
+  checkAch();save();renderRepos();updateUI();return true;
 }
-
-function upgradeRepo(repoId) {
-  const repo=state.repos.find(r=>r.id===repoId);
-  if(!repo) return;
-  const type=getType(repo.typeId);
-  const cost=Math.floor(type.cost*2*Math.pow(1.5,repo.level));
-  if(state.coins<cost){showToast(`Need ${fmt(cost)} 🪙 to upgrade`);return;}
-  state.coins-=cost; repo.level++;
-  addActivity('⬆️','Upgraded '+type.name,'Level '+repo.level,'');
+function upgradeRepo(id){
+  const r=G.repos.find(x=>x.id===id);if(!r)return;
+  const type=T(r.typeId);
+  const cost=Math.floor(type.cost*2*Math.pow(1.5,r.level));
+  if(G.coins<cost){toast('Need '+fmt(cost)+' 🪙');return;}
+  G.coins-=cost;r.level++;
+  addAct('⬆️','Upgraded '+type.name,'Level '+r.level,'');
   burst('coin',window.innerWidth/2,200,5);
-  checkAchievements(); saveState(); renderRepos(); updateUI();
+  checkAch();save();renderRepos();updateUI();
 }
+function calcCPS(){const m=getMult();return G.repos.reduce((s,r)=>{const t=T(r.typeId);return s+(t?t.income*r.level*m:0);},0);}
+function calcHP(){return G.repos.reduce((s,r)=>{const t=T(r.typeId);return s+(t?t.power*r.level:0);},0);}
+function getMult(){const n=G.repos.length;if(n>=50)return 50;if(n>=25)return 20;if(n>=10)return 8;if(n>=5)return 3;if(n>=3)return 2;return 1;}
 
-function calcCPS() {
-  const mult=getMultiplier();
-  return state.repos.reduce((s,r)=>{const t=getType(r.typeId);return s+(t?t.income*r.level*mult:0);},0);
-}
-function calcHashPower() { return state.repos.reduce((s,r)=>{const t=getType(r.typeId);return s+(t?t.power*r.level:0);},0); }
-function getMultiplier() {
-  const n=state.repos.length;
-  if(n>=50) return 50; if(n>=25) return 20; if(n>=10) return 8;
-  if(n>=5) return 3;   if(n>=3) return 2;   return 1;
-}
-
-/* ═══════════════════════════════════════
-   FORK
-═══════════════════════════════════════ */
-function openForkModal() {
-  if(state.repos.length<2){showToast('Need ≥2 repos to fork');return;}
-  const content=document.getElementById('forkContent');
+/* Fork */
+function openForkModal(){
+  if(G.repos.length<2){toast('Need ≥2 repos to fork');return;}
+  const fc=document.getElementById('forkContent');
   const possible=[];
   FORK_RECIPES.forEach(recipe=>{
-    const counts={};
-    recipe.inputs.forEach(id=>counts[id]=(counts[id]||0)+1);
-    const tmp={...counts};
-    state.repos.forEach(r=>{ if(tmp[r.typeId]>0) tmp[r.typeId]--; });
-    if(Object.values(tmp).every(v=>v<=0)) possible.push(recipe);
+    const cnt={};recipe.inputs.forEach(id=>cnt[id]=(cnt[id]||0)+1);
+    const tmp={...cnt};
+    G.repos.forEach(r=>{if(tmp[r.typeId]>0)tmp[r.typeId]--;});
+    if(Object.values(tmp).every(v=>v<=0))possible.push(recipe);
   });
-  if(possible.length===0) {
-    content.innerHTML=`<div style="text-align:center;padding:24px 0 16px;">
-      <div style="font-size:40px;margin-bottom:10px;">🍴</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:rgba(0,0,0,0.25);">NO COMBOS AVAILABLE</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,0,0,0.35);margin-top:6px;">Create more repos to unlock fork combinations</div>
-      <div style="margin-top:18px;background:rgba(0,0,0,0.04);border-radius:12px;padding:14px;text-align:left;">
-        ${FORK_RECIPES.map(r=>{
-          const t1=getType(r.inputs[0]),t2=getType(r.inputs[1]),to=getType(r.output);
-          return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,0,0,0.6);">${t1.icon} + ${t2.icon} → ${to.icon} ${to.name}</div>`;
+  if(!possible.length){
+    fc.innerHTML=`<div style="text-align:center;padding:20px 0 12px;">
+      <div style="font-size:36px;margin-bottom:8px;">🍴</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;color:rgba(0,0,0,0.2);">NO COMBOS</div>
+      <div style="font-family:'Fira Code',monospace;font-size:10px;color:rgba(0,0,0,0.33);margin-top:5px;">Create more repos to unlock forks</div>
+      <div style="margin-top:14px;background:rgba(0,0,0,0.04);border-radius:8px;padding:12px;text-align:left;">
+        ${FORK_RECIPES.map(r=>{const t1=T(r.inputs[0]),t2=T(r.inputs[1]),to=T(r.output);
+          return`<div style="font-family:'Fira Code',monospace;font-size:10px;color:rgba(0,0,0,0.55);margin-bottom:6px;">${t1.icon} + ${t2.icon} → ${to.icon} ${to.name}</div>`;
         }).join('')}
       </div></div>`;
   } else {
-    content.innerHTML=possible.map(recipe=>{
-      const t1=getType(recipe.inputs[0]),t2=getType(recipe.inputs[1]),out=getType(recipe.output);
-      return `<div class="fork-pair" onclick="doFork('${recipe.inputs[0]}','${recipe.inputs[1]}','${recipe.output}',this)">
-        <div class="fp-item"><div class="fi">${t1.icon}</div><div class="fn">${t1.name}</div></div>
-        <div class="fp-plus">+</div>
-        <div class="fp-item"><div class="fi">${t2.icon}</div><div class="fn">${t2.name}</div></div>
-        <div class="fp-arrow">→</div>
-        <div class="fp-item"><div class="fi">${out.icon}</div><div class="fn">${out.name}</div></div>
+    fc.innerHTML=possible.map(recipe=>{
+      const t1=T(recipe.inputs[0]),t2=T(recipe.inputs[1]),out=T(recipe.output);
+      return`<div class="fork-pair" onclick="doFork('${recipe.inputs[0]}','${recipe.inputs[1]}','${recipe.output}',this)">
+        <div class="fp-it"><div class="fp-ic">${t1.icon}</div><div class="fp-nm">${t1.name}</div></div>
+        <div class="fp-pl">+</div>
+        <div class="fp-it"><div class="fp-ic">${t2.icon}</div><div class="fp-nm">${t2.name}</div></div>
+        <div class="fp-ar">→</div>
+        <div class="fp-it"><div class="fp-ic">${out.icon}</div><div class="fp-nm">${out.name}</div></div>
       </div>`;
     }).join('');
   }
   document.getElementById('modalFork').classList.add('open');
 }
 
-function doFork(id1,id2,outputId,el) {
-  el.style.borderColor='var(--red)'; el.style.background='rgba(255,59,48,0.06)';
+function doFork(id1,id2,outId,el){
+  el.style.borderColor='var(--red)';
   setTimeout(()=>{
     closeModal('modalFork');
-    [id1,id2].forEach(rid=>{const idx=state.repos.findIndex(r=>r.typeId===rid);if(idx!==-1)state.repos.splice(idx,1);});
-    const out=getType(outputId);
-    state.repos.push({id:Date.now()+Math.random(),typeId:outputId,level:1,stars:0});
-    state.totalForks++;
-    addActivity('🍴','Forked → '+out.name,'New tier unlocked!','+'+out.power+' pwr');
+    [id1,id2].forEach(rid=>{const i=G.repos.findIndex(r=>r.typeId===rid);if(i!==-1)G.repos.splice(i,1);});
+    const out=T(outId);
+    G.repos.push({id:Date.now()+Math.random(),typeId:outId,level:1,stars:0});
+    G.totalForks++;
+    addAct('🍴','Forked → '+out.name,'New tier!','+'+out.power+' pwr');
     burst('star',window.innerWidth/2,200,10);
-    if(out.tier>=4) showCeleb('🎊','NEW TIER UNLOCKED!',out.icon+' '+out.name+' added to ecosystem');
-    checkAchievements(); saveState(); renderRepos(); updateUI();
-  },350);
+    if(out.tier>=4)showCeleb('🎊','NEW TIER UNLOCKED!',out.icon+' '+out.name);
+    checkAch();save();renderRepos();updateUI();
+  },280);
 }
 
-/* ═══════════════════════════════════════
-   CREATE REPO MODAL
-═══════════════════════════════════════ */
-function openCreateRepo() {
+function openCreateRepo(){
   const opts=document.getElementById('repoOpts');
-  const buyable=REPO_TYPES.filter(r=>r.cost>0||r.id==='readme');
-  opts.innerHTML=buyable.map(r=>`
+  opts.innerHTML=REPO_TYPES.filter(r=>r.cost>0||r.id==='readme').map(r=>`
     <div class="repo-opt" onclick="buyClose('${r.id}')">
-      <div class="repo-opt-ico">${r.icon}</div>
+      <div class="ro-ic">${r.icon}</div>
       <div>
-        <div class="repo-opt-name">${r.name}</div>
-        <div class="repo-opt-cost">${r.cost===0?'FREE':fmt(r.cost)+' coins'} · +${r.income}/s · PWR ${r.power}</div>
+        <div class="ro-n">${r.name}</div>
+        <div class="ro-c">${r.cost===0?'FREE':fmt(r.cost)+' coins'} · +${r.income}/s · PWR ${r.power}</div>
       </div>
     </div>`).join('');
   document.getElementById('modalCreate').classList.add('open');
 }
-function buyClose(typeId){if(createRepo(typeId)){closeModal('modalCreate');burst('star',window.innerWidth/2,200,6);}}
+function buyClose(id){if(createRepo(id)){closeModal('modalCreate');burst('star',window.innerWidth/2,200,5);}}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
-/* ═══════════════════════════════════════
-   RENDER
-═══════════════════════════════════════ */
-const TIER_CLASS=['','t1','t2','t3','t4','t5','t5','t5'];
-
-function renderRepos() {
-  const grid=document.getElementById('reposGrid');
-  if(state.repos.length===0){
-    grid.innerHTML=`<div style="text-align:center;padding:50px 20px;">
-      <div style="font-size:52px;margin-bottom:12px;">📦</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(0,0,0,0.2);">NO REPOS YET</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,0,0,0.3);margin-top:6px;">Create your first repo to start mining</div>
-    </div>`;
-    return;
+/* ═══════════════ RENDER ═══════════════ */
+const TC=['rc-t0','rc-t1','rc-t2','rc-t3','rc-t4','rc-t5'];
+function renderRepos(){
+  const g=document.getElementById('reposGrid');
+  if(!G.repos.length){
+    g.innerHTML=`<div style="text-align:center;padding:48px 20px;">
+      <div style="font-size:48px;margin-bottom:10px;">📦</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;color:rgba(0,0,0,0.18);">NO REPOS YET</div>
+      <div style="font-family:'Fira Code',monospace;font-size:11px;color:rgba(0,0,0,0.28);margin-top:6px;">create your first repo to start</div>
+    </div>`;return;
   }
-  grid.innerHTML=state.repos.map(repo=>{
-    const type=getType(repo.typeId); if(!type) return '';
-    const upgCost=Math.floor(type.cost*2*Math.pow(1.5,repo.level));
-    const canAfford=state.coins>=upgCost&&type.cost>0;
-    const tc=TIER_CLASS[type.tier]||'t5';
-    return `<div class="repo-card ${tc}">
-      <div class="repo-card-stripe"></div>
-      <div class="repo-card-head">
-        <div class="repo-ico">${type.icon}</div>
-        <div>
-          <div class="repo-name">${type.name}</div>
-          <div class="repo-lvl">LV.${repo.level}</div>
+  g.innerHTML=G.repos.map(repo=>{
+    const type=T(repo.typeId);if(!type)return'';
+    const cost=Math.floor(type.cost*2*Math.pow(1.5,repo.level));
+    const canAfford=G.coins>=cost&&type.cost>0;
+    const tc=TC[Math.min(type.tier,TC.length-1)];
+    return`<div class="repo-card ${tc}">
+      <div class="rc-stripe"></div>
+      <div class="rc-body">
+        <div class="rc-top">
+          <div class="rc-ico">${type.icon}</div>
+          <div>
+            <div class="rc-name">${type.name}</div>
+            <div class="rc-lv">LV.${repo.level}</div>
+          </div>
+          <div class="rc-income">+${(type.income*repo.level).toFixed(1)}/s</div>
         </div>
-        <div class="income-tag">+${(type.income*repo.level).toFixed(1)}/s</div>
+        <div class="rc-stats">
+          <div class="rcs"><div class="rv">${type.power*repo.level}</div><div class="rl">Power</div></div>
+          <div class="rcs"><div class="rv">${(type.stars*repo.level).toFixed(1)}</div><div class="rl">Stars/s</div></div>
+          <div class="rcs"><div class="rv">${fmt(repo.stars||0)}</div><div class="rl">Total</div></div>
+        </div>
       </div>
-      <div class="repo-stats-row">
-        <div class="rs"><div class="rv">${type.power*repo.level}</div><div class="rl">Power</div></div>
-        <div class="rs"><div class="rv">${(type.stars*repo.level).toFixed(1)}</div><div class="rl">Stars/s</div></div>
-        <div class="rs"><div class="rv">${fmt(repo.stars||0)}</div><div class="rl">Stars</div></div>
-      </div>
-      <div class="repo-btns">
-        ${type.cost>0?`<button class="btn-upg" onclick="upgradeRepo(${repo.id})" ${canAfford?'':'disabled'}>⬆️ ${fmt(upgCost)} coins</button>`:'<div style="flex:1"></div>'}
-        <button class="btn-frk" onclick="openForkModal()">🍴 Fork</button>
+      <div class="rc-btns">
+        ${type.cost>0?`<button class="btn-upg" onclick="upgradeRepo(${repo.id})" ${canAfford?'':'disabled'}>⬆ ${fmt(cost)} coins</button>`:'<div style="flex:1"></div>'}
+        <button class="btn-fork" onclick="openForkModal()">🍴 Fork</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function renderDiscover() {
-  document.getElementById('discoverGrid').innerHTML=DISCOVER_REPOS.map(d=>`
+function renderDiscover(){
+  document.getElementById('discGrid').innerHTML=DISCOVER.map(d=>`
     <div class="disc-card">
       <div class="disc-ico">${d.icon}</div>
       <div style="flex:1">
-        <div class="disc-name">${d.name}</div>
-        <div class="disc-desc">${d.desc}</div>
-        <div class="disc-stars">⭐ ${fmt(d.stars)}</div>
+        <div class="disc-n">${d.name}</div>
+        <div class="disc-d">${d.desc}</div>
+        <div class="disc-s">⭐ ${fmt(d.stars)}</div>
       </div>
-      <button class="btn-acq" onclick="acquireDiscover('${d.repoId}',${d.cost},'${d.name}')">
+      <button class="btn-acq" onclick="acquireDisc('${d.rId}',${d.cost},'${d.name}')">
         ${fmt(d.cost)}<br>coins
       </button>
     </div>`).join('');
 }
 
-function acquireDiscover(typeId,cost,name) {
-  if(state.coins<cost){showToast(`Need ${fmt(cost)} 🪙`);return;}
-  state.coins-=cost;
-  state.repos.push({id:Date.now()+Math.random(),typeId,level:1,stars:0});
-  addActivity('🔍','Acquired '+name,'Added to ecosystem','');
+function acquireDisc(typeId,cost,name){
+  if(G.coins<cost){toast('Need '+fmt(cost)+' 🪙');return;}
+  G.coins-=cost;
+  G.repos.push({id:Date.now()+Math.random(),typeId,level:1,stars:0});
+  addAct('🔍','Acquired '+name,'Added to ecosystem','');
   burst('star',window.innerWidth/2,300,7);
-  checkAchievements(); saveState(); renderRepos(); updateUI();
-  showToast('✅ '+name+' acquired!');
+  checkAch();save();renderRepos();updateUI();toast('✅ '+name);
 }
 
-function renderProfile() {
-  document.getElementById('profileAvatar').textContent=state.username[0].toUpperCase();
-  document.getElementById('profileName').textContent=state.username.toUpperCase();
-  document.getElementById('profileRankBadge').textContent=RANKS[state.rank];
-  const biggest=state.repos.reduce((b,r)=>{const t=getType(r.typeId);const bt=b?getType(b.typeId):null;return!b||(t&&t.power>(bt?bt.power:0))?r:b;},null);
-  document.getElementById('profileStats').innerHTML=[
-    {label:'Total Stars',val:fmt(state.totalStars)},
-    {label:'Coins Earned',val:fmt(state.totalCoinsEarned)},
-    {label:'Repos Built',val:state.repos.length},
-    {label:'Forks Made',val:state.totalForks},
-    {label:'Hash Power',val:fmt(calcHashPower())},
-    {label:'Best Repo',val:biggest?getType(biggest.typeId).icon:'—'},
-  ].map(s=>`<div class="prof-stat-card"><div class="psv">${s.val}</div><div class="psl">${s.label}</div></div>`).join('');
-  renderAchievements();
-}
-
-function renderAchievements() {
-  const unlocked=state.unlockedAchievements;
-  document.getElementById('achievementsGrid').innerHTML=ACHIEVEMENTS.map(a=>`
-    <div class="ach-item ${unlocked.includes(a.id)?'done':''}">
-      <div class="ach-ico">${a.icon}</div>
-      <div><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>
-      <div class="ach-tag">${unlocked.includes(a.id)?'DONE':'LOCKED'}</div>
+function renderProfile(){
+  document.getElementById('profAva').textContent=G.username[0].toUpperCase();
+  document.getElementById('profName').textContent=G.username.toUpperCase();
+  document.getElementById('profRank').textContent=RANKS[G.rank];
+  const big=G.repos.reduce((b,r)=>{const t=T(r.typeId);const bt=b?T(b.typeId):null;return!b||(t&&t.power>(bt?bt.power:0))?r:b;},null);
+  document.getElementById('profStats').innerHTML=[
+    {l:'Total Stars',v:fmt(G.totalStars)},
+    {l:'Coins Earned',v:fmt(G.totalCoinsEarned)},
+    {l:'Repos Built',v:G.repos.length},
+    {l:'Forks Made',v:G.totalForks},
+    {l:'Hash Power',v:fmt(calcHP())},
+    {l:'Best Repo',v:big?T(big.typeId).icon:'—'},
+  ].map(s=>`<div class="prof-card"><div class="pv">${s.v}</div><div class="pl">${s.l}</div></div>`).join('');
+  const u=G.unlocked;
+  document.getElementById('achGrid').innerHTML=ACHIEVEMENTS.map(a=>`
+    <div class="ach-row ${u.includes(a.id)?'done':''}">
+      <div class="ach-ic">${a.icon}</div>
+      <div><div class="ach-n">${a.name}</div><div class="ach-d">${a.desc}</div></div>
+      <div class="ach-tag">${u.includes(a.id)?'DONE':'LOCK'}</div>
     </div>`).join('');
-  if(document.getElementById('achCount'))
-    document.getElementById('achCount').textContent=`${unlocked.length}/9`;
+  if(document.getElementById('achCount'))document.getElementById('achCount').textContent=u.length+'/9';
 }
 
-function renderNetworkStats() {
-  const el=document.getElementById('networkStats'); if(!el) return;
+function renderNetStats(){
+  const el=document.getElementById('netStats');if(!el)return;
   el.innerHTML=[
-    {label:'Network Size',val:state.repos.length+' repos'},
-    {label:'Multiplier',val:'×'+getMultiplier()},
-    {label:'Coins/sec',val:fmt(calcCPS())+'/s'},
-    {label:'Hash Power',val:fmt(calcHashPower())},
-  ].map(s=>`<div class="act-item">
-    <div class="act-ico">📊</div>
-    <div><div class="act-title">${s.label}</div></div>
-    <div class="act-val">${s.val}</div>
+    {l:'Network Size',v:G.repos.length+' repos'},
+    {l:'Multiplier',v:'×'+getMult()},
+    {l:'Coins/sec',v:fmt(calcCPS())+'/s'},
+    {l:'Hash Power',v:fmt(calcHP())},
+  ].map(s=>`<div class="act-row">
+    <div class="ar-ic">📊</div>
+    <div><div class="ar-t">${s.l}</div></div>
+    <div class="ar-v">${s.v}</div>
   </div>`).join('');
 }
 
-/* ═══════════════════════════════════════
-   CANVAS NETWORK
-═══════════════════════════════════════ */
-let canvasNodes=[];
-
-function initCanvas() {
-  const canvas=document.getElementById('network-canvas');
-  if(!canvas) return;
-  canvas.width=canvas.parentElement.offsetWidth;
-  drawNetwork();
+/* ═══════════════ NETWORK CANVAS ═══════════════ */
+let nodes=[];
+function initCanvas(){
+  const c=document.getElementById('netcanvas');if(!c)return;
+  c.width=c.parentElement.offsetWidth;
+  drawNet();
 }
-
-function drawNetwork() {
-  const canvas=document.getElementById('network-canvas'); if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width, H=canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#0E0E0E'; ctx.fillRect(0,0,W,H);
-
-  if(state.repos.length===0){
-    ctx.fillStyle='rgba(255,255,255,0.18)';
-    ctx.font='700 13px JetBrains Mono, monospace';
-    ctx.textAlign='center';
-    ctx.fillText('NO REPOS · CREATE SOME',W/2,H/2);
-    return;
+function drawNet(){
+  const c=document.getElementById('netcanvas');if(!c)return;
+  const x=c.getContext('2d'),W=c.width,H=c.height;
+  x.clearRect(0,0,W,H);x.fillStyle='#0D0D0D';x.fillRect(0,0,W,H);
+  if(!G.repos.length){
+    x.fillStyle='rgba(255,255,255,0.18)';
+    x.font='600 11px Fira Code,monospace';x.textAlign='center';
+    x.fillText('NO REPOS — CREATE SOME',W/2,H/2);return;
   }
-
-  if(canvasNodes.length!==state.repos.length){
-    canvasNodes=state.repos.map((_,i)=>{
-      const a=(i/state.repos.length)*Math.PI*2;
-      const rad=Math.min(W,H)*0.3;
-      return{x:W/2+Math.cos(a)*rad,y:H/2+Math.sin(a)*rad,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,repo:state.repos[i]};
+  if(nodes.length!==G.repos.length){
+    nodes=G.repos.map((_,i)=>{
+      const a=(i/G.repos.length)*Math.PI*2,r=Math.min(W,H)*.3;
+      return{x:W/2+Math.cos(a)*r,y:H/2+Math.sin(a)*r,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,ri:i};
     });
-  } else {
-    canvasNodes.forEach((n,i)=>n.repo=state.repos[i]);
-  }
-
-  canvasNodes.forEach(n=>{
-    n.x+=n.vx; n.y+=n.vy;
-    const m=28;
-    if(n.x<m||n.x>W-m) n.vx*=-1;
-    if(n.y<m||n.y>H-m) n.vy*=-1;
+  } else {nodes.forEach((n,i)=>n.ri=i);}
+  nodes.forEach(n=>{
+    n.x+=n.vx;n.y+=n.vy;
+    const m=26;if(n.x<m||n.x>W-m)n.vx*=-1;if(n.y<m||n.y>H-m)n.vy*=-1;
   });
-
-  const t=(Date.now()/900)%1;
-  for(let i=0;i<canvasNodes.length;i++){
-    for(let j=i+1;j<canvasNodes.length;j++){
-      const a=canvasNodes[i],b=canvasNodes[j];
-      const dx=a.x-b.x,dy=a.y-b.y;
-      const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<160){
-        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-        ctx.strokeStyle=`rgba(255,195,0,${0.55-dist/290})`; ctx.lineWidth=1.2; ctx.stroke();
-        const px=a.x+(b.x-a.x)*t, py=a.y+(b.y-a.y)*t;
-        ctx.beginPath(); ctx.arc(px,py,2.5,0,Math.PI*2);
-        ctx.fillStyle='#FFC300'; ctx.fill();
-      }
+  const t=(Date.now()/850)%1;
+  for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+    const a=nodes[i],b=nodes[j];
+    const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<155){
+      x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);
+      x.strokeStyle=`rgba(255,195,0,${.5-d/310})`;x.lineWidth=1;x.stroke();
+      const px=a.x+(b.x-a.x)*t,py=a.y+(b.y-a.y)*t;
+      x.beginPath();x.arc(px,py,2.5,0,Math.PI*2);x.fillStyle='#FFC300';x.fill();
     }
   }
-
-  canvasNodes.forEach(n=>{
-    const type=getType(n.repo.typeId); if(!type) return;
-    const r=16+type.tier*4;
-    const colors=['rgba(255,255,255,0.12)','#FF3B30','#FF8C00','#FFC300','#00C853','#00BCD4','#9C27B0','#E91E63'];
-    ctx.beginPath(); ctx.arc(n.x,n.y,r,0,Math.PI*2);
-    ctx.fillStyle=colors[Math.min(type.tier,colors.length-1)]; ctx.fill();
-    ctx.strokeStyle='rgba(255,255,255,0.2)'; ctx.lineWidth=1.5; ctx.stroke();
-    ctx.font=`${r}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(type.icon,n.x,n.y);
+  const COLS=['rgba(255,255,255,.1)','#FF3B30','#FF7A00','#FFC300','#00D26A','#00BCD4','#9C27B0'];
+  nodes.forEach(n=>{
+    const repo=G.repos[n.ri];if(!repo)return;
+    const type=T(repo.typeId);if(!type)return;
+    const r=14+type.tier*4;
+    x.beginPath();x.arc(n.x,n.y,r,0,Math.PI*2);
+    x.fillStyle=COLS[Math.min(type.tier,COLS.length-1)];x.fill();
+    x.strokeStyle='rgba(255,255,255,.18)';x.lineWidth=1.5;x.stroke();
+    x.font=`${r}px serif`;x.textAlign='center';x.textBaseline='middle';
+    x.fillText(type.icon,n.x,n.y);
   });
-
-  requestAnimationFrame(drawNetwork);
+  requestAnimationFrame(drawNet);
 }
 
-/* ═══════════════════════════════════════
-   UPDATE UI
-═══════════════════════════════════════ */
-function updateUI() {
-  const cps=calcCPS(), hp=calcHashPower(), mult=getMultiplier();
-  const un=state.username[0].toUpperCase();
-
-  document.getElementById('headerAvatar').textContent=un;
-  document.getElementById('headerCoins').textContent=fmt(state.coins);
-  document.getElementById('statStars').textContent=fmt(state.totalStars);
-  document.getElementById('statHash').textContent=fmt(hp);
-  document.getElementById('statRepos').textContent=state.repos.length;
-  document.getElementById('statMult').textContent='×'+mult;
-  document.getElementById('bigCoins').textContent=fmt(state.coins);
+/* ═══════════════ UI UPDATE ═══════════════ */
+function updateUI(){
+  const cps=calcCPS(),hp=calcHP(),mult=getMult();
+  document.getElementById('hdrAva').textContent=G.username[0].toUpperCase();
+  document.getElementById('hdrCoins').textContent=fmt(G.coins);
+  document.getElementById('stStars').textContent=fmt(G.totalStars);
+  document.getElementById('stHash').textContent=fmt(hp);
+  document.getElementById('stRepos').textContent=G.repos.length;
+  document.getElementById('stMult').textContent='×'+mult;
+  document.getElementById('bigCoins').textContent=fmt(G.coins);
   document.getElementById('cps').textContent=cps.toFixed(2);
-
-  const xpForNext=XP_THRESHOLDS[Math.min(state.rank,XP_THRESHOLDS.length-1)];
-  const xpPct=xpForNext===Infinity?100:Math.min(state.xp/xpForNext*100,100);
-  document.getElementById('xpBar').style.width=xpPct+'%';
-  document.getElementById('xpLabel').textContent=`${fmt(state.xp)} / ${xpForNext===Infinity?'∞':fmt(xpForNext)} XP`;
-
-  const mv=document.getElementById('multiplierValue'); if(mv) mv.textContent='×'+mult;
-
-  const feed=document.getElementById('activityFeed');
-  if(feed&&state.activity.length>0)
-    feed.innerHTML=state.activity.slice(0,8).map(a=>`
-      <div class="act-item">
-        <div class="act-ico">${a.icon}</div>
-        <div><div class="act-title">${a.text}</div><div class="act-sub">${a.sub}</div></div>
-        ${a.val?`<div class="act-val">${a.val}</div>`:''}
+  const xpN=XP_THR[Math.min(G.rank,XP_THR.length-1)];
+  const pct=xpN===Infinity?100:Math.min(G.xp/xpN*100,100);
+  document.getElementById('xpFill').style.width=pct+'%';
+  document.getElementById('xpLbl').textContent=`${fmt(G.xp)} / ${xpN===Infinity?'∞':fmt(xpN)} XP`;
+  const mv=document.getElementById('multVal');if(mv)mv.textContent='×'+mult;
+  const feed=document.getElementById('actFeed');
+  if(feed&&G.activity.length)
+    feed.innerHTML=G.activity.slice(0,8).map(a=>`
+      <div class="act-row">
+        <div class="ar-ic">${a.ic}</div>
+        <div><div class="ar-t">${a.tx}</div><div class="ar-s">${a.sb}</div></div>
+        ${a.vl?`<div class="ar-v">${a.vl}</div>`:''}
       </div>`).join('');
 }
 
-/* ═══════════════════════════════════════
-   ACHIEVEMENTS & RANK
-═══════════════════════════════════════ */
-function checkAchievements() {
+/* ═══════════════ ACHIEVEMENTS ═══════════════ */
+function checkAch(){
   ACHIEVEMENTS.forEach(a=>{
-    if(!state.unlockedAchievements.includes(a.id)&&a.check(state)){
-      state.unlockedAchievements.push(a.id);
+    if(!G.unlocked.includes(a.id)&&a.check(G)){
+      G.unlocked.push(a.id);
       showCeleb(a.icon,a.name.toUpperCase(),a.desc);
-      addActivity('🏆','Achievement: '+a.name,a.desc,'');
-      state.xp+=50; checkRankUp();
+      addAct('🏆','Achievement: '+a.name,a.desc,'');
+      G.xp+=50;checkRank();
     }
   });
 }
-function checkRankUp() {
-  if(state.xp>=XP_THRESHOLDS[state.rank]&&state.rank<RANKS.length-1){
-    state.rank++;
-    showCeleb('🎯','RANK UP!','You are now: '+RANKS[state.rank]);
-    addActivity('⬆️','Rank Up!','Now: '+RANKS[state.rank],'');
+function checkRank(){
+  if(G.xp>=XP_THR[G.rank]&&G.rank<RANKS.length-1){
+    G.rank++;
+    showCeleb('🎯','RANK UP!','Now: '+RANKS[G.rank]);
+    addAct('⬆️','Rank Up!',RANKS[G.rank],'');
   }
 }
 
-/* ═══════════════════════════════════════
-   CELEBRATION
-═══════════════════════════════════════ */
-function showCeleb(emoji,title,sub) {
-  const ov=document.getElementById('celebOverlay');
-  document.getElementById('celebEmoji').textContent=emoji;
-  document.getElementById('celebTitle').textContent=title;
-  document.getElementById('celebSub').textContent=sub;
-  ov.classList.add('show');
+/* ═══════════════ CELEBRATION ═══════════════ */
+function showCeleb(em,t,s){
+  document.getElementById('celebEm').textContent=em;
+  document.getElementById('celebT').textContent=t;
+  document.getElementById('celebS').textContent=s;
+  document.getElementById('celebOverlay').classList.add('show');
   burst('star',window.innerWidth/2,window.innerHeight/2,14);
-  burst('coin',window.innerWidth/2,window.innerHeight/2,10);
-  setTimeout(()=>ov.classList.remove('show'),3000);
+  burst('coin',window.innerWidth/2,window.innerHeight/2,8);
+  setTimeout(()=>document.getElementById('celebOverlay').classList.remove('show'),3000);
 }
 
-/* ═══════════════════════════════════════
-   GAME LOOP
-═══════════════════════════════════════ */
-let lastTick=Date.now(), ticker;
-
-function startGameLoop() {
-  if(ticker) clearInterval(ticker);
-  lastTick=Date.now();
-  ticker=setInterval(gameTick,100);
-  initCanvas();
+/* ═══════════════ GAME LOOP ═══════════════ */
+let last=Date.now(),tick;
+function startLoop(){
+  if(tick)clearInterval(tick);
+  last=Date.now();tick=setInterval(loop,100);initCanvas();
+}
+function loop(){
+  const now=Date.now(),dt=(now-last)/1000;last=now;
+  const cps=calcCPS(),earned=cps*dt;
+  G.coins+=earned;G.totalCoinsEarned+=earned;
+  G.repos.forEach(r=>{const t=T(r.typeId);if(!t)return;const s=t.stars*r.level*dt;r.stars=(r.stars||0)+s;G.totalStars+=s;});
+  G.xp+=earned*.01;checkRank();
+  if(Math.random()<.016*G.repos.length)particle('coin',Math.random()*window.innerWidth,Math.random()*180+70);
+  if(Math.floor(now/10000)!==Math.floor((now-dt*1000)/10000))save();
+  updateUI();renderNetStats();checkAch();
 }
 
-function gameTick() {
-  const now=Date.now(), dt=(now-lastTick)/1000; lastTick=now;
-  const cps=calcCPS(), earned=cps*dt;
-  state.coins+=earned; state.totalCoinsEarned+=earned;
-  state.repos.forEach(r=>{
-    const type=getType(r.typeId); if(!type) return;
-    const se=type.stars*r.level*dt;
-    r.stars=(r.stars||0)+se; state.totalStars+=se;
-  });
-  state.xp+=earned*0.01; checkRankUp();
-  if(Math.random()<0.018*state.repos.length)
-    spawnParticle('coin',Math.random()*window.innerWidth,Math.random()*180+80);
-  if(Math.floor(now/10000)!==Math.floor((now-dt*1000)/10000)) saveState();
-  updateUI(); renderNetworkStats(); checkAchievements();
-}
-
-/* ═══════════════════════════════════════
-   TABS
-═══════════════════════════════════════ */
-function switchTab(tab) {
+/* ═══════════════ TABS ═══════════════ */
+function switchTab(tab){
   ['home','repos','network','discover','profile'].forEach(t=>{
     const el=document.getElementById('tab-'+t);
-    const nav=document.getElementById('nav-'+t);
-    if(el) el.style.display=t===tab?'block':'none';
-    if(nav) nav.classList.toggle('active',t===tab);
+    const n=document.getElementById('nav-'+t);
+    if(el)el.style.display=t===tab?'block':'none';
+    if(n)n.classList.toggle('active',t===tab);
   });
-  if(tab==='repos') renderRepos();
-  if(tab==='discover') renderDiscover();
-  if(tab==='profile') renderProfile();
-  if(tab==='network') setTimeout(initCanvas,80);
+  if(tab==='repos')renderRepos();
+  if(tab==='discover')renderDiscover();
+  if(tab==='profile')renderProfile();
+  if(tab==='network')setTimeout(initCanvas,60);
 }
 
-/* ═══════════════════════════════════════
-   MISC
-═══════════════════════════════════════ */
-document.querySelectorAll('.modal-overlay').forEach(el=>{
-  el.addEventListener('click',e=>{if(e.target===el) el.classList.remove('open');});
+/* ═══════════════ MISC ═══════════════ */
+document.querySelectorAll('.modal-bg').forEach(el=>{
+  el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open');});
 });
 document.addEventListener('touchmove',e=>{
-  if(!e.target.closest('.main-content,.sheet')) e.preventDefault();
+  if(!e.target.closest('.main-content,.sheet'))e.preventDefault();
 },{passive:false});
 </script>
 </body>
