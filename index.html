@@ -568,6 +568,66 @@ body{
 .tab-content{animation:tabFade .2s ease both;}
 @keyframes tabFade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 ::-webkit-scrollbar{width:0;}
+
+/* ── ORYNTH BADGE ── */
+.orynth-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#0D0D0D 0%,#1a1a2e 100%);
+  border:1px solid rgba(138,43,226,.45);
+  border-radius:6px;padding:6px 11px;
+  font-family:'Fira Code',monospace;font-size:9px;font-weight:600;
+  color:rgba(255,255,255,.75);letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 0 12px rgba(138,43,226,.2),inset 0 1px 0 rgba(255,255,255,.06);
+  text-decoration:none;cursor:default;
+  transition:box-shadow .2s,border-color .2s;
+}
+.orynth-badge:active{box-shadow:0 0 20px rgba(138,43,226,.45);}
+.orynth-badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:linear-gradient(135deg,#9C27B0,#7B1FA2);
+  box-shadow:0 0 6px rgba(156,39,176,.8);
+  animation:orynthPulse 1.8s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes orynthPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
+.orynth-badge-text{position:relative;}
+.orynth-badge-text::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(138,43,226,.15),transparent);
+  animation:orynthShimmer 2.8s ease-in-out infinite;
+}
+@keyframes orynthShimmer{0%{transform:translateX(-100%);}100%{transform:translateX(200%);}}
+
+.land-orynth-wrap{
+  display:flex;justify-content:center;
+  padding:14px 0 6px;
+  opacity:0;animation:fadeSlide .45s .7s cubic-bezier(.34,1.3,.64,1) forwards;
+}
+
+/* profile orynth card */
+.orynth-profile-card{
+  margin:0 12px 0;
+  background:linear-gradient(135deg,#0D0D0D,#1a1a2e);
+  border:1px solid rgba(138,43,226,.3);
+  border-radius:12px;padding:16px 16px 14px;
+  position:relative;overflow:hidden;
+}
+.orynth-profile-card::before{
+  content:'ORYNTH';position:absolute;right:-8px;bottom:-10px;
+  font-family:'Unbounded',sans-serif;font-size:52px;font-weight:900;
+  color:rgba(138,43,226,.07);letter-spacing:3px;pointer-events:none;
+}
+.opc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.opc-icon{
+  width:40px;height:40px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#9C27B0,#7B1FA2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;box-shadow:0 4px 12px rgba(156,39,176,.4);
+}
+.opc-title{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:#fff;letter-spacing:.01em;}
+.opc-sub{font-family:'Fira Code',monospace;font-size:9px;color:rgba(138,43,226,.75);margin-top:2px;text-transform:uppercase;letter-spacing:.08em;}
+.opc-status{margin-left:auto;background:rgba(138,43,226,.15);border:1px solid rgba(138,43,226,.3);border-radius:4px;padding:3px 8px;font-family:'Fira Code',monospace;font-size:8px;font-weight:600;color:rgba(138,43,226,.9);text-transform:uppercase;letter-spacing:.06em;}
+.opc-desc{font-family:'Onest',sans-serif;font-size:12px;color:rgba(255,255,255,.45);line-height:1.5;}
 </style>
 </head>
 <body>
@@ -647,6 +707,13 @@ body{
           Continue → <span id="btnContinueCoins" style="font-family:'Fira Code',monospace;color:var(--yellow);margin-left:4px;"></span>
         </button>
       </div>
+    </div>
+
+    <div class="land-orynth-wrap">
+      <span class="orynth-badge">
+        <span class="orynth-badge-dot"></span>
+        <span class="orynth-badge-text">BUILT ON ORYNTH</span>
+      </span>
     </div>
 
     <div class="land-stats">
@@ -742,7 +809,20 @@ body{
         <div class="prof-rank" id="profRank">Intern</div>
       </div>
       <div class="prof-grid" id="profStats"></div>
-      <div class="sh"><h2>Achievements</h2><em id="achCount">0/9</em></div>
+
+      <div class="orynth-profile-card">
+        <div class="opc-top">
+          <div class="opc-icon">🔮</div>
+          <div>
+            <div class="opc-title">ORYNTH</div>
+            <div class="opc-sub">Verified Builder</div>
+          </div>
+          <div class="opc-status">● ACTIVE</div>
+        </div>
+        <div class="opc-desc">This game is powered by Orynth — the open platform for builders who ship.</div>
+      </div>
+
+      <div class="sh" style="margin-top:4px;"><h2>Achievements</h2><em id="achCount">0/10</em></div>
       <div class="ach-list" id="achGrid"></div>
       <button class="btn-logout" onclick="confirmLogout()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -889,6 +969,7 @@ const ACHIEVEMENTS=[
   {id:'hero',    name:'Open Source Hero',  icon:'🦸',desc:'Reach 10,000 stars',           check:s=>s.totalStars>=10000},
   {id:'builder', name:'Ecosystem Builder', icon:'🌐',desc:'Have 10 repositories',         check:s=>s.repos.length>=10},
   {id:'unicorn', name:'Tech Unicorn',      icon:'🦄',desc:'Earn 1,000,000 coins',         check:s=>s.coins>=1000000},
+  {id:'orynth',  name:'Orynth Builder',    icon:'🔮',desc:'Reach Senior Dev rank',         check:s=>s.rank>=3},
 ];
 
 /* ══════════════════════════════════
@@ -1099,7 +1180,7 @@ function renderProfile(){
   document.getElementById('profStats').innerHTML=[{l:'Total Stars',v:fmt(G.totalStars)},{l:'Coins Earned',v:fmt(G.totalCoinsEarned)},{l:'Repos Built',v:G.repos.length},{l:'Forks Made',v:G.totalForks},{l:'Hash Power',v:fmt(calcHP())},{l:'Best Repo',v:big?T(big.typeId).icon:'—'}].map(s=>`<div class="prof-card"><div class="pv">${s.v}</div><div class="pl">${s.l}</div></div>`).join('');
   const u=G.unlocked;
   document.getElementById('achGrid').innerHTML=ACHIEVEMENTS.map(a=>`<div class="ach-row ${u.includes(a.id)?'done':''}"><div class="ach-ic">${a.icon}</div><div><div class="ach-n">${a.name}</div><div class="ach-d">${a.desc}</div></div><div class="ach-tag">${u.includes(a.id)?'DONE':'LOCK'}</div></div>`).join('');
-  if(document.getElementById('achCount'))document.getElementById('achCount').textContent=u.length+'/9';
+  if(document.getElementById('achCount'))document.getElementById('achCount').textContent=u.length+'/'+ACHIEVEMENTS.length;
 }
 function renderNetStats(){
   const el=document.getElementById('netStats');if(!el)return;
